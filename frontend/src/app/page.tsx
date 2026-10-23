@@ -843,15 +843,15 @@ export default function Home() {
       {/* GLOBAL FLOATING PILL NAVBAR (APPLE IPHONE LIQUID FROSTED GLASS CAPSULE) */}
       <div className="sticky top-3 sm:top-4 z-50 px-3 sm:px-6 lg:px-8 transition-all pointer-events-none">
         <header
-          className={`max-w-6xl mx-auto rounded-full px-4 sm:px-6 py-2.5 transition-all duration-300 pointer-events-auto backdrop-blur-2xl [backdrop-filter:blur(24px)_saturate(190%)] ${
+          className={`max-w-7xl mx-auto rounded-full px-4 sm:px-6 py-2.5 transition-all duration-300 pointer-events-auto backdrop-blur-2xl [backdrop-filter:blur(24px)_saturate(190%)] ${
             navTheme === "light"
-              ? "bg-white/80 border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.95)] ring-1 ring-slate-900/5 text-slate-800"
+              ? "bg-white/85 border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.95)] ring-1 ring-slate-900/5 text-slate-800"
               : "bg-white/15 border border-white/30 shadow-[0_16px_40px_rgba(0,0,0,0.35),inset_0_1px_1.5px_rgba(255,255,255,0.5)] ring-1 ring-white/15 text-white"
           }`}
         >
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-4">
             {/* BRAND PILL */}
-            <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <Link href="/" className="flex items-center gap-3 group shrink-0 min-w-0">
               {profile.logoUrl ? (
                 <img
                   src={profile.logoUrl}
@@ -867,9 +867,9 @@ export default function Home() {
                   <Building2 className="w-5 h-5" />
                 </div>
               )}
-              <div className="flex flex-col">
+              <div className="flex flex-col min-w-0 max-w-[180px] sm:max-w-[220px] md:max-w-[260px]">
                 <span
-                  className={`text-sm sm:text-base font-bold tracking-tight transition-colors leading-tight ${
+                  className={`text-sm sm:text-base font-bold tracking-tight truncate transition-colors leading-tight ${
                     navTheme === "light"
                       ? "text-slate-900 group-hover:text-rose-800"
                       : "text-white group-hover:text-rose-200 drop-shadow-xs"
@@ -878,7 +878,7 @@ export default function Home() {
                   {profile.companyName}
                 </span>
                 <span
-                  className={`text-[9px] tracking-wider uppercase font-bold hidden sm:block ${
+                  className={`text-[9px] tracking-wider uppercase font-bold truncate hidden sm:block ${
                     navTheme === "light" ? "text-rose-800" : "text-rose-200 drop-shadow-xs"
                   }`}
                 >
@@ -888,7 +888,7 @@ export default function Home() {
             </Link>
 
             {/* CENTER CLEAN MENU LINKS */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
               {[
                 { label: t.nav.about, href: "#about" },
                 { label: t.nav.services, href: "#services" },
@@ -900,7 +900,7 @@ export default function Home() {
                   <Link
                     key={idx}
                     href={item.href}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
                       navTheme === "light"
                         ? "text-slate-700 hover:text-rose-800 hover:bg-rose-50/70"
                         : "text-white/90 hover:text-white hover:bg-white/15 drop-shadow-xs"
@@ -912,7 +912,7 @@ export default function Home() {
                   <a
                     key={idx}
                     href={item.href}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
                       navTheme === "light"
                         ? "text-slate-700 hover:text-rose-800 hover:bg-rose-50/70"
                         : "text-white/90 hover:text-white hover:bg-white/15 drop-shadow-xs"
@@ -926,20 +926,9 @@ export default function Home() {
 
             {/* RIGHT ACTION PILLS */}
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-
-              <Link
-                href="/articles"
-                className={`hidden md:inline-flex items-center rounded-full px-4 py-1.5 text-xs font-semibold transition-all shadow-xs ${
-                  navTheme === "light"
-                    ? "border border-slate-200 bg-white/80 hover:bg-rose-50 hover:border-rose-200 text-slate-700"
-                    : "border border-white/25 bg-white/15 hover:bg-white/25 text-white backdrop-blur-md"
-                }`}
-              >
-                {t.nav.catalog}
-              </Link>
               <a
                 href="#contact"
-                className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all shadow-md active:scale-95 ${
+                className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all shadow-md active:scale-95 ${
                   navTheme === "light"
                     ? "text-white bg-gradient-to-r from-rose-700 via-rose-800 to-[#700020] hover:brightness-110 shadow-rose-950/20"
                     : "text-white bg-gradient-to-r from-rose-500 via-rose-600 to-[#700020] hover:brightness-115 ring-1 ring-white/30 shadow-rose-950/40"

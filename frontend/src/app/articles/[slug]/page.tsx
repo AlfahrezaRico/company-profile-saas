@@ -349,9 +349,9 @@ function ArticleDetailContent() {
     <div className="min-h-screen bg-[#fafaf9] flex flex-col font-sans">
       {/* FLOATING PILL GLASSMORPHISM NAVBAR (CLEAN CRYSTAL FROSTED GLASS ALA PRIVY.ID) */}
       <div className="sticky top-3 sm:top-4 z-50 px-3 sm:px-6 lg:px-8 transition-all">
-        <header className="max-w-6xl mx-auto rounded-full bg-white/75 backdrop-blur-2xl [backdrop-filter:blur(24px)_saturate(180%)] border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.95)] ring-1 ring-slate-900/5 px-4 sm:px-6 py-2.5 transition-all">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group shrink-0">
+        <header className="max-w-7xl mx-auto rounded-full bg-white/75 backdrop-blur-2xl [backdrop-filter:blur(24px)_saturate(180%)] border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.95)] ring-1 ring-slate-900/5 px-4 sm:px-6 py-2.5 transition-all">
+          <div className="flex items-center justify-between gap-4">
+            <Link href="/" className="flex items-center gap-3 group shrink-0 min-w-0">
               {profile.logoUrl ? (
                 <img
                   src={profile.logoUrl}
@@ -363,11 +363,11 @@ function ArticleDetailContent() {
                   <Building2 className="w-5 h-5" />
                 </div>
               )}
-              <div className="flex flex-col">
-                <span className="text-sm sm:text-base font-bold tracking-tight text-slate-900 group-hover:text-rose-800 transition-colors leading-tight">
+              <div className="flex flex-col min-w-0 max-w-[180px] sm:max-w-[240px]">
+                <span className="text-sm sm:text-base font-bold tracking-tight text-slate-900 group-hover:text-rose-800 transition-colors leading-tight truncate">
                   {profile.companyName}
                 </span>
-                <span className="text-[9px] tracking-wider text-rose-800 uppercase font-bold hidden sm:block">
+                <span className="text-[9px] tracking-wider text-rose-800 uppercase font-bold hidden sm:block truncate">
                   {profile.tagline || t.taglineDefault}
                 </span>
               </div>
