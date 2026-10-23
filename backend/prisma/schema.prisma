@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  SUPERADMIN
+  EDITOR
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum InquiryStatus {
+  UNREAD
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         Role      @default(EDITOR)
+  avatar       String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  articles     Article[]
+
+  @@map("users")
+}
+
+model CompanyProfile {
+  id          String   @id @default(uuid())
+  companyName String   @default("PT Nusantara Tech Digital")
+  tagline     String?  @default("Enterprise Digital & Cloud Solutions")
+  logoUrl     String?
+  faviconUrl  String?
+  heroBgUrl   String?
+  about       String   @db.Text
+  vision      String   @db.Text
+  mission     String   @db.Text
+  address     String   @db.Text
+  email       String
+  phone       String
+  whatsapp    String?
+  linkedin    String?
+  instagram   String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("company_profiles")
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  slug      String    @unique
+  articles  Article[]
+  createdAt DateTime  @default(now())
+
+  @@map("categories")
+}
+
+model Article {
+  id              String        @id @default(uuid())
+  title           String
+  slug            String        @unique
+  content         String        @db.Text
+  excerpt         String?       @db.Text
+  thumbnailUrl    String?
+  metaTitle       String?
+  metaDescription String?
+  status          ContentStatus @default(DRAFT)
+  publishedAt     DateTime?
+  authorId        String
+  author          User          @relation(fields: [authorId], references: [id])
+  categoryId      String?
+  category        Category?     @relation(fields: [categoryId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("articles")
+}
+
+model ProductCategory {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  slug      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+
+  @@map("product_categories")
+}
+
+model Product {
+  id          String           @id @default(uuid())
+  name        String
+  slug        String           @unique
+  description String           @db.Text
+  shortDesc   String?
+  categoryId  String?
+  category    ProductCategory? @relation(fields: [categoryId], references: [id])
+  status      ContentStatus    @default(PUBLISHED)
+  galleryUrls String[]
+  isFeatured  Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@map("products")
+}
+
+model Client {
+  id          String   @id @default(uuid())
+  companyName String
+  logoUrl     String?
+  websiteUrl  String?
+  category    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@map("clients")
+}
+
+model Testimonial {
+  id         String   @id @default(uuid())
+  clientName String
+  company    String
+  role       String
+  feedback   String   @db.Text
+  rating     Int      @default(5)
+  avatarUrl  String?
+  createdAt  DateTime @default(now())
+
+  @@map("testimonials")
+}
+
+model Inquiry {
+  id        String        @id @default(uuid())
+  fullName  String
+  email     String
+  phone     String
+  service   String
+  message   String        @db.Text
+  status    InquiryStatus @default(UNREAD)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@map("inquiries")
+}
+
+model HeroSlide {
+  id             String   @id @default(uuid())
+  title          String
+  subtitle       String   @db.Text
+  badge          String?  @default("SOLUSI ENTERPRISE TERPERCAYA")
+  layout         String?  @default("CENTER") // "CENTER" | "LEFT" | "SPLIT"
+  primaryCtaText String?  @default("Konsultasi Proyek Gratis")
+  primaryCtaUrl  String?  @default("#contact")
+  secondaryCtaText String? @default("Jelajahi Layanan Kami")
+  secondaryCtaUrl String?  @default("#services")
+  splitTitle     String?
+  splitSubtitle  String?  @db.Text
+  splitCtaText   String?
+  splitCtaUrl    String?
+  imageUrl       String?
+  orderIndex     Int      @default(0)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("hero_slides")
+}
