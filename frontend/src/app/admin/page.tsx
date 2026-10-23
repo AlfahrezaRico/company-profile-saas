@@ -5,9 +5,10 @@ import { useEffect } from "react";
 export default function AdminRedirectPage() {
   useEffect(() => {
     // Redirect otomatis ke portal Admin CMS
-    const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:5173";
+    const adminUrl = (process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:5173").replace(/\/+$/, "");
     window.location.href = adminUrl;
   }, []);
+
 
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center text-white p-4">

@@ -1,7 +1,10 @@
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '../src/app.module.js';
+// @ts-ignore
+import { AppModule } from '../dist/app.module.js';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import { existsSync } from 'fs';
 
 let cachedServer: any;
 
@@ -12,9 +15,12 @@ async function bootstrapServer() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
-  app.useStaticAssets(join(process.cwd(), 'uploads'), {
-    prefix: '/uploads/',
-  });
+  const uploadsDir = join(process.cwd(), 'uploads');
+  if (existsSync(uploadsDir)) {
+    app.useStaticAssets(uploadsDir, {
+      prefix: '/uploads/',
+    });
+  }
   await app.init();
   return app.getHttpAdapter().getInstance();
 }
@@ -25,3 +31,4 @@ export default async function handler(req: any, res: any) {
   }
   return cachedServer(req, res);
 }
+
