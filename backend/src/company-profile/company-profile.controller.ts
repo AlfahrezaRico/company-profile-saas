@@ -6,7 +6,7 @@ export class CompanyProfileController {
   constructor(private readonly service: CompanyProfileService) {}
 
   @Get()
-  @Header('Cache-Control', 'public, max-age=60, s-maxage=300')
+  @Header('Cache-Control', 'no-cache, no-store, must-revalidate')
   async getProfile() {
     return this.service.getProfile();
   }

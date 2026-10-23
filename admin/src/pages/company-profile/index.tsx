@@ -7,11 +7,11 @@ import {
   Row,
   Col,
   Typography,
-  message,
   Divider,
   Upload,
   Spin,
   Image,
+  App as AntdApp,
 } from "antd";
 import {
   SaveOutlined,
@@ -27,6 +27,7 @@ const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 export const CompanyProfilePage: React.FC = () => {
+  const { notification } = AntdApp.useApp();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -35,9 +36,65 @@ export const CompanyProfilePage: React.FC = () => {
 
   const API_URL = `${API_BASE_URL}/api`;
 
+  // Kompresi otomatis gambar sebelum diunggah jika ukuran file besar (canvas browser resize)
+  const optimizeImage = (file: File): Promise<File> => {
+    return new Promise((resolve) => {
+      if (
+        file.type === "image/svg+xml" ||
+        file.type === "image/gif" ||
+        file.size < 400 * 1024
+      ) {
+        return resolve(file);
+      }
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        const img = new window.Image();
+        img.src = e.target?.result as string;
+        img.onload = () => {
+          let { width, height } = img;
+          const maxWidth = 1920;
+          const maxHeight = 1080;
+          if (width > maxWidth || height > maxHeight) {
+            if (width / height > maxWidth / maxHeight) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            } else {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx?.drawImage(img, 0, 0, width, height);
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) return resolve(file);
+              const optimized = new File(
+                [blob],
+                file.name.replace(/\.[^/.]+$/, ".jpg"),
+                {
+                  type: "image/jpeg",
+                  lastModified: Date.now(),
+                }
+              );
+              resolve(optimized);
+            },
+            "image/jpeg",
+            0.85
+          );
+        };
+        img.onerror = () => resolve(file);
+      };
+      reader.onerror = () => resolve(file);
+    });
+  };
+
   // Ambil data profil perusahaan langsung dari PostgreSQL
   useEffect(() => {
-    fetch(`${API_URL}/company-profile`)
+    fetch(`${API_URL}/company-profile`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         form.setFieldsValue(data);
@@ -50,7 +107,11 @@ export const CompanyProfilePage: React.FC = () => {
       })
       .catch((err) => {
         console.error("Gagal mengambil profil:", err);
-        message.error("Gagal memuat profil dari server");
+        notification.error({
+          message: "Koneksi Gagal",
+          description: "Gagal memuat data profil perusahaan dari server.",
+          placement: "topRight",
+        });
       })
       .finally(() => setLoading(false));
   }, [form]);
@@ -73,38 +134,83 @@ export const CompanyProfilePage: React.FC = () => {
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error("Gagal menyimpan ke database");
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(
+          errData.message || `Gagal menyimpan ke database (Status: ${res.status})`
+        );
+      }
       const updated = await res.json();
-      message.success("✓ Profil perusahaan & logo berhasil diperbarui ke PostgreSQL!");
       form.setFieldsValue(updated);
+      if (updated.logoUrl !== undefined) setLogoUrl(updated.logoUrl || "");
+      if (updated.heroBgUrl !== undefined) setHeroBgUrl(updated.heroBgUrl || "");
+
+      notification.success({
+        message: "✓ Berhasil Disimpan ke Database!",
+        description:
+          "Seluruh informasi profil perusahaan, kontak kantor, visi misi, logo, dan background hero banner berhasil diperbarui di PostgreSQL.",
+        placement: "topRight",
+        duration: 4.5,
+      });
     } catch (err: any) {
       console.error(err);
-      message.error(err.message || "Terjadi kesalahan saat menyimpan");
+      notification.error({
+        message: "Gagal Menyimpan Perubahan",
+        description:
+          err.message || "Terjadi kesalahan saat menyimpan data ke database PostgreSQL.",
+        placement: "topRight",
+        duration: 6,
+      });
     } finally {
       setSaving(false);
     }
   };
 
+  const onFinishFailed = (errorInfo: any) => {
+    console.warn("Validation failed:", errorInfo);
+    notification.warning({
+      message: "Validasi Form Belum Lengkap",
+      description: "Mohon periksa kolom bertanda bintang (Nama Resmi Perusahaan) sebelum menyimpan.",
+      placement: "topRight",
+      duration: 4.5,
+    });
+  };
+
   // Handler upload logo ke endpoint backend NestJS /api/upload
   const handleUploadLogo = async (options: any) => {
     const { file, onSuccess, onError } = options;
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
+      const processedFile = await optimizeImage(file);
+      const formData = new FormData();
+      formData.append("file", processedFile);
+
       const res = await fetch(`${API_URL}/upload`, {
         method: "POST",
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Upload gagal");
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || "Upload logo gagal");
+      }
       const data = await res.json();
       setLogoUrl(data.url);
-      message.success("✓ Logo berhasil diunggah! Jangan lupa klik 'Simpan Perubahan'.");
+      notification.success({
+        message: "Logo Berhasil Diunggah",
+        description:
+          "Berkas logo telah berhasil diunggah. Jangan lupa klik tombol 'Simpan Perubahan ke Database' di bawah.",
+        placement: "topRight",
+        duration: 4,
+      });
       onSuccess(data, file);
     } catch (err: any) {
       console.error("Upload error:", err);
-      message.error("Gagal mengunggah logo: " + err.message);
+      notification.error({
+        message: "Gagal Mengunggah Logo",
+        description: err.message || "Pastikan format berkas gambar valid (maks. 5MB).",
+        placement: "topRight",
+        duration: 5,
+      });
       onError(err);
     }
   };
@@ -112,23 +218,38 @@ export const CompanyProfilePage: React.FC = () => {
   // Handler upload background hero banner
   const handleUploadHeroBg = async (options: any) => {
     const { file, onSuccess, onError } = options;
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
+      const processedFile = await optimizeImage(file);
+      const formData = new FormData();
+      formData.append("file", processedFile);
+
       const res = await fetch(`${API_URL}/upload`, {
         method: "POST",
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Upload background gagal");
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || "Upload background gagal");
+      }
       const data = await res.json();
       setHeroBgUrl(data.url);
-      message.success("✓ Background Hero berhasil diunggah! Jangan lupa klik 'Simpan Perubahan'.");
+      notification.success({
+        message: "Background Hero Berhasil Diunggah",
+        description:
+          "Gambar background hero telah siap. Klik 'Simpan Perubahan ke Database' di bawah untuk menyimpannya permanen.",
+        placement: "topRight",
+        duration: 4,
+      });
       onSuccess(data, file);
     } catch (err: any) {
       console.error("Upload background error:", err);
-      message.error("Gagal mengunggah background hero: " + err.message);
+      notification.error({
+        message: "Gagal Mengunggah Background Hero",
+        description: err.message || "Pastikan format berkas gambar valid (maks. 5MB).",
+        placement: "topRight",
+        duration: 5,
+      });
       onError(err);
     }
   };
@@ -153,7 +274,12 @@ export const CompanyProfilePage: React.FC = () => {
         </Text>
       </div>
 
-      <Form form={form} layout="vertical" onFinish={onFinish}>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
         <Row gutter={[16, 16]}>
           <Col xs={24} lg={14}>
             <Card
