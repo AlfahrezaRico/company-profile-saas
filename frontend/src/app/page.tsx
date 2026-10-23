@@ -894,7 +894,6 @@ export default function Home() {
                 { label: t.nav.services, href: "#services" },
                 { label: t.nav.clients, href: "#clients" },
                 { label: t.nav.articles, href: "/articles", isLink: true },
-                { label: t.nav.contact, href: "#contact" },
               ].map((item, idx) =>
                 item.isLink ? (
                   <Link
@@ -968,7 +967,6 @@ export default function Home() {
                 { label: t.nav.services, href: "#services" },
                 { label: t.nav.clients, href: "#clients" },
                 { label: t.nav.articles, href: "/articles", isLink: true },
-                { label: t.nav.contact, href: "#contact" },
               ].map((item, idx) =>
                 item.isLink ? (
                   <Link
@@ -998,6 +996,15 @@ export default function Home() {
                   </a>
                 )
               )}
+
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="mt-1 flex items-center justify-center gap-2 px-4 py-2 rounded-full text-xs font-bold text-white bg-gradient-to-r from-rose-700 via-rose-800 to-[#700020] shadow-md active:scale-95"
+              >
+                <span>{t.nav.consultationCta}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
 
               {/* MOBILE LANGUAGE SWITCHER ROW */}
               <div className="pt-2 mt-1 border-t border-slate-200/30 flex items-center justify-between px-3">
