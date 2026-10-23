@@ -214,7 +214,12 @@ export const CompanyProfilePage: React.FC = () => {
                       style={{ objectFit: "contain", borderRadius: 8, border: "1px solid #f0f0f0", padding: 6 }}
                     />
                     <div style={{ fontSize: 12, color: "#8c8c8c", marginTop: 4 }}>
-                      URL: <Text code copyable>{logoUrl}</Text>
+                      URL:{" "}
+                      <Text code copyable={!logoUrl.startsWith("data:")}>
+                        {logoUrl.startsWith("data:")
+                          ? "✓ Gambar Terunggah (Tersimpan di Database)"
+                          : logoUrl}
+                      </Text>
                     </div>
                   </div>
                 ) : (
@@ -269,8 +274,14 @@ export const CompanyProfilePage: React.FC = () => {
                       style={{ objectFit: "cover", width: "100%", borderRadius: 8, border: "1px solid #f0f0f0" }}
                     />
                     <div style={{ fontSize: 12, color: "#8c8c8c", marginTop: 4 }}>
-                      URL: <Text code copyable>{heroBgUrl}</Text>
+                      URL:{" "}
+                      <Text code copyable={!heroBgUrl.startsWith("data:")}>
+                        {heroBgUrl.startsWith("data:")
+                          ? "✓ Background Terunggah (Tersimpan di Database)"
+                          : heroBgUrl}
+                      </Text>
                     </div>
+
                     <Button
                       type="link"
                       danger
