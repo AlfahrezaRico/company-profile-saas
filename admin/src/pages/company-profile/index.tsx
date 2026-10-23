@@ -211,21 +211,29 @@ export const CompanyProfilePage: React.FC = () => {
                       src={logoUrl}
                       alt="Logo Perusahaan"
                       height={90}
-                      style={{ objectFit: "contain", borderRadius: 8, border: "1px solid #f0f0f0", padding: 6 }}
+                      style={{
+                        objectFit: "contain",
+                        borderRadius: 8,
+                        border: "1px solid #e2e8f0",
+                        padding: 8,
+                        backgroundColor: "#f8fafc",
+                      }}
                     />
-                    <div style={{ fontSize: 12, color: "#8c8c8c", marginTop: 4 }}>
-                      URL:{" "}
-                      <Text code copyable={!logoUrl.startsWith("data:")}>
-                        {logoUrl.startsWith("data:")
-                          ? "✓ Gambar Terunggah (Tersimpan di Database)"
-                          : logoUrl}
-                      </Text>
+                    <div style={{ marginTop: 8 }}>
+                      <Button
+                        type="link"
+                        danger
+                        size="small"
+                        onClick={() => setLogoUrl("")}
+                      >
+                        Hapus Logo
+                      </Button>
                     </div>
                   </div>
                 ) : (
                   <div
                     style={{
-                      height: 80,
+                      height: 90,
                       backgroundColor: "#fafafa",
                       border: "1px dashed #d9d9d9",
                       borderRadius: 8,
@@ -246,7 +254,9 @@ export const CompanyProfilePage: React.FC = () => {
                   showUploadList={false}
                   accept="image/png,image/jpeg,image/webp,image/svg+xml"
                 >
-                  <Button icon={<UploadOutlined />}>Pilih & Unggah Logo Baru</Button>
+                  <Button icon={<UploadOutlined />}>
+                    {logoUrl ? "Ganti File Logo" : "Pilih & Unggah Logo"}
+                  </Button>
                 </Upload>
                 <div style={{ fontSize: 11, color: "#999", marginTop: 6 }}>
                   Format: PNG, JPG, WebP, SVG (Maks. 5 MB)
@@ -271,31 +281,28 @@ export const CompanyProfilePage: React.FC = () => {
                       src={heroBgUrl}
                       alt="Hero Background"
                       height={100}
-                      style={{ objectFit: "cover", width: "100%", borderRadius: 8, border: "1px solid #f0f0f0" }}
+                      style={{
+                        objectFit: "cover",
+                        width: "100%",
+                        borderRadius: 8,
+                        border: "1px solid #e2e8f0",
+                      }}
                     />
-                    <div style={{ fontSize: 12, color: "#8c8c8c", marginTop: 4 }}>
-                      URL:{" "}
-                      <Text code copyable={!heroBgUrl.startsWith("data:")}>
-                        {heroBgUrl.startsWith("data:")
-                          ? "✓ Background Terunggah (Tersimpan di Database)"
-                          : heroBgUrl}
-                      </Text>
+                    <div style={{ marginTop: 8 }}>
+                      <Button
+                        type="link"
+                        danger
+                        size="small"
+                        onClick={() => setHeroBgUrl("")}
+                      >
+                        Hapus Background (Gunakan Default)
+                      </Button>
                     </div>
-
-                    <Button
-                      type="link"
-                      danger
-                      size="small"
-                      onClick={() => setHeroBgUrl("")}
-                      style={{ marginTop: 4 }}
-                    >
-                      Hapus Background (Gunakan Default)
-                    </Button>
                   </div>
                 ) : (
                   <div
                     style={{
-                      height: 80,
+                      height: 90,
                       backgroundColor: "#fafafa",
                       border: "1px dashed #d9d9d9",
                       borderRadius: 8,
@@ -316,7 +323,9 @@ export const CompanyProfilePage: React.FC = () => {
                   showUploadList={false}
                   accept="image/png,image/jpeg,image/webp"
                 >
-                  <Button icon={<UploadOutlined />}>Pilih & Unggah Background Hero</Button>
+                  <Button icon={<UploadOutlined />}>
+                    {heroBgUrl ? "Ganti Background Hero" : "Pilih & Unggah Background Hero"}
+                  </Button>
                 </Upload>
                 <div style={{ fontSize: 11, color: "#999", marginTop: 6 }}>
                   Rekomendasi: 1920x1080 atau 1600x900 (Maks. 5 MB)
