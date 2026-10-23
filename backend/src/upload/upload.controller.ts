@@ -18,10 +18,10 @@ export class UploadController {
     FileInterceptor('file', {
       storage: memoryStorage(),
       fileFilter: (req: any, file: any, cb: any) => {
-        if (!file.mimetype.match(/\/(jpg|jpeg|png|gif|webp|svg\+xml)$/)) {
+        if (!file.mimetype.startsWith('image/')) {
           return cb(
             new BadRequestException(
-              'Hanya berkas gambar (JPG, PNG, WebP, SVG) yang diperbolehkan!',
+              'Hanya berkas gambar (JPG, PNG, WebP, SVG, AVIF, GIF) yang diperbolehkan!',
             ),
             false,
           );
@@ -39,8 +39,8 @@ export class UploadController {
     }
 
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const ext = extname(file.originalname);
-    const filename = `logo-${uniqueSuffix}${ext}`;
+    const ext = extname(file.originalname) || '.png';
+    const filename = `upload-${uniqueSuffix}${ext}`;
 
     // 1. CLOUD MODE: If Vercel Blob token is configured (Production Vercel)
     if (process.env.BLOB_READ_WRITE_TOKEN) {
@@ -55,30 +55,35 @@ export class UploadController {
           filename: filename,
         };
       } catch (err: any) {
-        console.error('Vercel Blob upload failed:', err);
-        throw new BadRequestException(
-          `Gagal mengunggah ke Cloud Storage: ${err.message}`,
-        );
+        console.error('Vercel Blob upload failed, falling back to Data URL:', err);
       }
     }
 
-    // 2. LOCAL DEV MODE: Save to local ./uploads directory
+    // 2. LOCAL DEV MODE: Try local ./uploads directory
     const uploadDir = join(process.cwd(), 'uploads');
     try {
       await fs.mkdir(uploadDir, { recursive: true });
       await fs.writeFile(join(uploadDir, filename), file.buffer);
+      const host = process.env.BACKEND_URL || 'http://localhost:4000';
+      return {
+        success: true,
+        url: `${host}/uploads/${filename}`,
+        filename: filename,
+      };
     } catch (err: any) {
-      console.error('Local disk write failed:', err);
-      throw new BadRequestException(
-        `Gagal menyimpan berkas lokal: ${err.message}`,
+      console.warn(
+        'Disk upload unavailable (serverless read-only filesystem). Converting to Base64 Data URL:',
+        err.message,
       );
+      // 3. SERVERLESS FALLBACK: Base64 Data URL (stored directly in DB, works everywhere)
+      const mime = file.mimetype || 'image/png';
+      const base64Data = file.buffer.toString('base64');
+      const dataUri = `data:${mime};base64,${base64Data}`;
+      return {
+        success: true,
+        url: dataUri,
+        filename: filename,
+      };
     }
-
-    const host = process.env.BACKEND_URL || 'http://localhost:4000';
-    return {
-      success: true,
-      url: `${host}/uploads/${filename}`,
-      filename: filename,
-    };
   }
 }
