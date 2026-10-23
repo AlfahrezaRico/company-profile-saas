@@ -183,7 +183,6 @@ const translations = {
         { label: "Mitra & Portofolio", href: "#clients" },
         { label: "Wawasan & Artikel", href: "/articles", isLink: true },
         { label: "Hubungi Tim Ahli", href: "#contact" },
-        { label: "Portal Admin CMS", href: "http://localhost:5173", targetBlank: true },
       ],
       contactTitle: "Kantor & Kontak Resmi",
       chatWhatsapp: "Chat WhatsApp Resmi",
@@ -332,7 +331,6 @@ const translations = {
         { label: "Partners & Portfolio", href: "#clients" },
         { label: "Articles & Insights", href: "/articles", isLink: true },
         { label: "Contact Expert Team", href: "#contact" },
-        { label: "Admin CMS Portal", href: "http://localhost:5173", targetBlank: true },
       ],
       contactTitle: "Official Office & Contact",
       chatWhatsapp: "Official WhatsApp Chat",
@@ -1985,7 +1983,6 @@ export default function Home() {
                     ) : (
                       <a
                         href={link.href}
-                        target={link.targetBlank ? "_blank" : undefined}
                         className="hover:text-rose-400 transition-colors"
                       >
                         {link.label}

@@ -115,7 +115,6 @@ const translations = {
       { label: "Mitra & Klien", href: "/#clients" },
       { label: "Wawasan & Artikel", href: "/articles" },
       { label: "Hubungi Tim Ahli", href: "/#contact" },
-      { label: "Portal Admin CMS", href: "http://localhost:5173", targetBlank: true },
     ],
     contactTitle: "Kantor & Kontak Resmi",
     chatWhatsapp: "Chat WhatsApp Resmi",
@@ -165,7 +164,6 @@ const translations = {
       { label: "Partners & Portfolio", href: "/#clients" },
       { label: "Articles & Insights", href: "/articles" },
       { label: "Contact Expert Team", href: "/#contact" },
-      { label: "Admin CMS Portal", href: "http://localhost:5173", targetBlank: true },
     ],
     contactTitle: "Official Office & Contact",
     chatWhatsapp: "Official WhatsApp Chat",
@@ -684,15 +682,9 @@ function ArticleDetailContent() {
               <ul className="space-y-2 text-xs">
                 {t.companyList.map((item, idx) => (
                   <li key={idx}>
-                    {item.targetBlank ? (
-                      <a href={item.href} target="_blank" className="hover:text-rose-400 transition-colors">
-                        {item.label}
-                      </a>
-                    ) : (
-                      <Link href={item.href} className="hover:text-rose-400 transition-colors">
-                        {item.label}
-                      </Link>
-                    )}
+                    <Link href={item.href} className="hover:text-rose-400 transition-colors">
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>

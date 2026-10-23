@@ -66,11 +66,9 @@ export const LoginPage: React.FC = () => {
         </div>
       }
       formProps={{
-        initialValues: {
-          email: "admin@nusantaratech.id",
-          password: "password123",
-        },
+        autoComplete: "off",
       }}
+      rememberMe={false}
     />
   );
 };

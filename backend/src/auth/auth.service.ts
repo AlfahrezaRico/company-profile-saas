@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -69,5 +69,37 @@ export class AuthService {
     } catch (err) {
       throw new UnauthorizedException('Token sesi telah kedaluwarsa atau tidak valid.');
     }
+  }
+
+  async changePassword(userId: string, oldPass: string, newPass: string) {
+    if (!newPass || newPass.length < 6) {
+      throw new BadRequestException('Kata sandi baru minimal harus 6 karakter.');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Pengguna tidak ditemukan.');
+    }
+
+    const isMatch = await bcrypt.compare(oldPass, user.passwordHash);
+    if (!isMatch) {
+      throw new BadRequestException('Kata sandi lama yang Anda masukkan tidak sesuai.');
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const newPasswordHash = await bcrypt.hash(newPass, salt);
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { passwordHash: newPasswordHash },
+    });
+
+    return {
+      success: true,
+      message: 'Kata sandi berhasil diperbarui.',
+    };
   }
 }
