@@ -26,9 +26,22 @@ async function bootstrapServer() {
 }
 
 export default async function handler(req: any, res: any) {
-  if (!cachedServer) {
-    cachedServer = await bootstrapServer();
+  try {
+    if (!cachedServer) {
+      cachedServer = await bootstrapServer();
+    }
+    return cachedServer(req, res);
+  } catch (err: any) {
+    console.error('SERVERLESS_BOOTSTRAP_ERROR:', err);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    return res.status(500).json({
+      error: 'SERVERLESS_BOOTSTRAP_ERROR',
+      message: err?.message || String(err),
+      stack: err?.stack,
+    });
   }
-  return cachedServer(req, res);
 }
+
 
