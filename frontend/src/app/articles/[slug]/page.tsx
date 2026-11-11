@@ -646,16 +646,6 @@ function ArticleDetailContent() {
               <p className="text-xs text-slate-400 leading-relaxed pr-4">
                 {lang === "en" ? t.footerAbout : (profile.about || t.footerAbout)}
               </p>
-              <div className="pt-2 flex items-center gap-3 text-xs">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300 font-medium">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  ISO 27001 Certified
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-rose-400" />
-                  Enterprise Grade
-                </span>
-              </div>
             </div>
 
             {/* Kolom 2: Solusi & Produk (lg:col-span-3) */}

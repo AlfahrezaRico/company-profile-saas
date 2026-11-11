@@ -19,7 +19,6 @@ import {
   ChevronRight,
   ChevronLeft,
   Send,
-  Sparkles,
   Building2,
   Lock,
   BookOpen,
@@ -1566,8 +1565,12 @@ export default function Home() {
       <section id="services" className="py-20 lg:py-28 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-rose-700" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold mb-3 shadow-xs">
+              <img
+                src="https://img.icons8.com/?id=NTa3xp2XGiRy&format=png&size=48"
+                alt="Services"
+                className="w-4 h-4 object-contain"
+              />
               <span>{t.services.badge}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -1591,7 +1594,11 @@ export default function Home() {
                     </div>
                     {srv.isFeatured && (
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200 shadow-xs">
-                        <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                        <img
+                          src="https://img.icons8.com/?id=8ggStxqyboK5&format=png&size=48"
+                          alt="Featured"
+                          className="w-3.5 h-3.5 object-contain"
+                        />
                         Unggulan
                       </span>
                     )}
@@ -1691,8 +1698,12 @@ export default function Home() {
           {/* HEADER & NEXT/PREV CONTROLS */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold uppercase tracking-wider mb-2">
-                <Sparkles className="w-3.5 h-3.5 text-rose-700" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold uppercase tracking-wider mb-2 shadow-xs">
+                <img
+                  src="https://img.icons8.com/?id=W5To6Q3gjDiK&format=png&size=48"
+                  alt="Articles"
+                  className="w-4 h-4 object-contain"
+                />
                 <span>{t.articles.badge}</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -1751,8 +1762,12 @@ export default function Home() {
 
               {/* Top Bar: Icon & Category */}
               <div className="relative z-20 flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rose-600 via-rose-700 to-[#700020] flex items-center justify-center text-white shadow-lg shadow-rose-950/40 border border-white/20">
-                  <Sparkles className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-2xl bg-white/95 backdrop-blur-md flex items-center justify-center p-1.5 shadow-lg border border-white/40">
+                  <img
+                    src="https://img.icons8.com/?id=ZkNtfkg1ssmW&format=png&size=96"
+                    alt="Insight"
+                    className="w-7 h-7 object-contain"
+                  />
                 </div>
                 <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-rose-300 text-[10px] font-bold uppercase tracking-wider">
                   {card1.category?.name || (lang === "en" ? "FEATURED INSIGHT" : "WAWASAN UTAMA")}
@@ -1811,8 +1826,12 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/10 z-10" />
 
                   <div className="relative z-20 flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-600 to-[#700020] flex items-center justify-center text-white shadow-md border border-white/20">
-                      <Sparkles className="w-4 h-4" />
+                    <div className="w-8 h-8 rounded-xl bg-white/95 backdrop-blur-md flex items-center justify-center p-1 shadow-md border border-white/40">
+                      <img
+                        src="https://img.icons8.com/?id=G6qlKcs9gihV&format=png&size=96"
+                        alt="Security"
+                        className="w-5 h-5 object-contain"
+                      />
                     </div>
                     <span className="px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-rose-300 text-[9px] font-bold uppercase tracking-wider">
                       {card2.category?.name || t.articles.watermarks.security}
@@ -1848,8 +1867,12 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/10 z-10" />
 
                   <div className="relative z-20 flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-600 to-[#700020] flex items-center justify-center text-white shadow-md border border-white/20">
-                      <Sparkles className="w-4 h-4" />
+                    <div className="w-8 h-8 rounded-xl bg-white/95 backdrop-blur-md flex items-center justify-center p-1 shadow-md border border-white/40">
+                      <img
+                        src="https://img.icons8.com/?id=kSjQH15KN1Vc&format=png&size=96"
+                        alt="Innovation"
+                        className="w-5 h-5 object-contain"
+                      />
                     </div>
                     <span className="px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-rose-300 text-[9px] font-bold uppercase tracking-wider">
                       {card3.category?.name || t.articles.watermarks.efficiency}
@@ -2111,22 +2134,6 @@ export default function Home() {
               <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
                 {lang === "en" ? t.footer.companyDesc : (profile.about || t.footer.companyDesc)}
               </p>
-
-              {/* Trust & Compliance Badges */}
-              <div className="pt-2 flex flex-wrap gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-[11px] font-semibold">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  ISO 27001 Certified
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-[11px] font-semibold">
-                  <Lock className="w-3.5 h-3.5 text-rose-400" />
-                  256-Bit SSL Protection
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-[11px] font-semibold">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
-                  Kominfo Registered
-                </span>
-              </div>
             </div>
 
             {/* Kolom 2: Solusi & Produk (lg:col-span-3) */}
