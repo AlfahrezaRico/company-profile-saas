@@ -575,6 +575,16 @@ export default function ArticlesPage() {
               <Link href="/" className="hover:text-slate-300 transition-colors">{t.home}</Link>
               <span className="text-slate-700">•</span>
               <Link href="/articles" className="hover:text-slate-300 transition-colors">{t.pageTitle}</Link>
+              <span className="text-slate-700">•</span>
+              <a
+                href="https://icons8.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-rose-400 transition-colors"
+                title="Icons provided by Icons8"
+              >
+                Icons by Icons8
+              </a>
             </div>
           </div>
         </div>

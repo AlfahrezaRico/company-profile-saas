@@ -679,7 +679,13 @@ export default function Home() {
       lower.includes("outsourcing") ||
       lower.includes("hr")
     ) {
-      return <Users className="w-7 h-7" />;
+      return (
+        <img
+          src="https://img.icons8.com/?id=36m26sAM2RfO&format=png&size=96"
+          alt="Manpower & HR"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      );
     }
     if (
       lower.includes("bpo") ||
@@ -687,7 +693,13 @@ export default function Home() {
       lower.includes("operasional") ||
       lower.includes("pelayanan")
     ) {
-      return <Briefcase className="w-7 h-7" />;
+      return (
+        <img
+          src="https://img.icons8.com/?id=QkAoBvyzFLpH&format=png&size=96"
+          alt="Business Process Outsourcing"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      );
     }
     if (
       lower.includes("konsultasi") ||
@@ -695,30 +707,61 @@ export default function Home() {
       lower.includes("security") ||
       lower.includes("keamanan")
     ) {
-      return <ShieldCheck className="w-7 h-7" />;
+      return (
+        <img
+          src="https://img.icons8.com/?id=G6qlKcs9gihV&format=png&size=96"
+          alt="IT Consulting & Security"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      );
     }
     if (
       lower.includes("transformasi") ||
       lower.includes("digital") ||
-      lower.includes("cloud") ||
-      lower.includes("software")
+      lower.includes("erp") ||
+      lower.includes("automation")
     ) {
-      return <BarChart3 className="w-7 h-7" />;
+      return (
+        <img
+          src="https://img.icons8.com/?id=M2rB4aGrYYOq&format=png&size=96"
+          alt="Digital Transformation"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      );
     }
     if (
       lower.includes("ai") ||
       lower.includes("data") ||
       lower.includes("analitik")
     ) {
-      return <Sparkles className="w-7 h-7" />;
+      return (
+        <img
+          src="https://img.icons8.com/?id=ywKOa8qNRVyK&format=png&size=96"
+          alt="AI & Analytics"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      );
+    }
+    if (
+      lower.includes("cloud") ||
+      lower.includes("web") ||
+      lower.includes("software")
+    ) {
+      return (
+        <img
+          src="https://img.icons8.com/?id=3FDJsdSpK6cv&format=png&size=96"
+          alt="Cloud & Web"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      );
     }
     const fallbackIcons = [
-      <Users className="w-7 h-7" key="1" />,
-      <Briefcase className="w-7 h-7" key="2" />,
-      <ShieldCheck className="w-7 h-7" key="3" />,
-      <BarChart3 className="w-7 h-7" key="4" />,
-      <Sparkles className="w-7 h-7" key="5" />,
-      <Zap className="w-7 h-7" key="6" />,
+      <img key="1" src="https://img.icons8.com/?id=36m26sAM2RfO&format=png&size=96" alt="Icon" className="w-10 h-10 object-contain drop-shadow-xs" />,
+      <img key="2" src="https://img.icons8.com/?id=QkAoBvyzFLpH&format=png&size=96" alt="Icon" className="w-10 h-10 object-contain drop-shadow-xs" />,
+      <img key="3" src="https://img.icons8.com/?id=G6qlKcs9gihV&format=png&size=96" alt="Icon" className="w-10 h-10 object-contain drop-shadow-xs" />,
+      <img key="4" src="https://img.icons8.com/?id=M2rB4aGrYYOq&format=png&size=96" alt="Icon" className="w-10 h-10 object-contain drop-shadow-xs" />,
+      <img key="5" src="https://img.icons8.com/?id=3FDJsdSpK6cv&format=png&size=96" alt="Icon" className="w-10 h-10 object-contain drop-shadow-xs" />,
+      <img key="6" src="https://img.icons8.com/?id=ywKOa8qNRVyK&format=png&size=96" alt="Icon" className="w-10 h-10 object-contain drop-shadow-xs" />,
     ];
     return fallbackIcons[index % fallbackIcons.length];
   };
@@ -726,7 +769,13 @@ export default function Home() {
   const defaultServices = [
     {
       id: "srv-1",
-      icon: <Zap className="w-7 h-7" />,
+      icon: (
+        <img
+          src="https://img.icons8.com/?id=3FDJsdSpK6cv&format=png&size=96"
+          alt="Cloud Solutions"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      ),
       title: "Enterprise Web & Cloud Solutions",
       desc:
         lang === "id"
@@ -737,7 +786,13 @@ export default function Home() {
     },
     {
       id: "srv-2",
-      icon: <ShieldCheck className="w-7 h-7" />,
+      icon: (
+        <img
+          src="https://img.icons8.com/?id=G6qlKcs9gihV&format=png&size=96"
+          alt="Cybersecurity"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      ),
       title: lang === "id" ? "Cyber Security & Auditing" : "Cybersecurity & Security Auditing",
       desc:
         lang === "id"
@@ -748,7 +803,13 @@ export default function Home() {
     },
     {
       id: "srv-3",
-      icon: <Sparkles className="w-7 h-7" />,
+      icon: (
+        <img
+          src="https://img.icons8.com/?id=ywKOa8qNRVyK&format=png&size=96"
+          alt="AI Integration"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      ),
       title: lang === "id" ? "AI Integration & Data Analytics" : "AI Integration & Predictive Analytics",
       desc:
         lang === "id"
@@ -759,7 +820,13 @@ export default function Home() {
     },
     {
       id: "srv-4",
-      icon: <BarChart3 className="w-7 h-7" />,
+      icon: (
+        <img
+          src="https://img.icons8.com/?id=M2rB4aGrYYOq&format=png&size=96"
+          alt="Digital Transformation"
+          className="w-10 h-10 object-contain drop-shadow-xs"
+        />
+      ),
       title: lang === "id" ? "Digital Business Transformation" : "Digital Business Transformation",
       desc:
         lang === "id"
@@ -1519,7 +1586,7 @@ export default function Home() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-14 h-14 rounded-2xl bg-rose-50/90 border border-rose-200/60 flex items-center justify-center text-rose-800 group-hover:bg-gradient-to-tr group-hover:from-rose-800 group-hover:to-[#700020] group-hover:text-white group-hover:scale-105 shadow-xs group-hover:shadow-lg transition-all duration-300">
+                    <div className="w-14 h-14 rounded-2xl bg-slate-50/90 border border-rose-100 shadow-xs flex items-center justify-center p-2 group-hover:scale-110 group-hover:bg-white group-hover:shadow-md group-hover:border-rose-200 transition-all duration-300">
                       {srv.icon}
                     </div>
                     {srv.isFeatured && (
@@ -2157,6 +2224,16 @@ export default function Home() {
               <a href="#services" className="hover:text-slate-300 transition-colors">{t.nav.services}</a>
               <span className="text-slate-700">•</span>
               <a href="#contact" className="hover:text-slate-300 transition-colors">{t.nav.contact}</a>
+              <span className="text-slate-700">•</span>
+              <a
+                href="https://icons8.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-rose-400 transition-colors"
+                title="Icons provided by Icons8"
+              >
+                Icons by Icons8
+              </a>
             </div>
           </div>
         </div>
