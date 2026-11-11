@@ -29,6 +29,7 @@ import {
   X,
   ArrowUp,
   Clock,
+  Briefcase,
 } from "lucide-react";
 
 // INDONESIA & UK SVG FLAGS (CRISP VECTOR ALA PRIVY.ID)
@@ -396,6 +397,7 @@ export default function Home() {
   });
   const [clientsList, setClientsList] = useState<any[]>([]);
   const [articlesList, setArticlesList] = useState<any[]>([]);
+  const [productsList, setProductsList] = useState<any[]>([]);
 
   useEffect(() => {
     try {
@@ -471,6 +473,23 @@ export default function Home() {
         }
       })
       .catch((err) => console.log("Fallback hero slides:", err));
+
+    // Fetch dynamic products & services from PostgreSQL
+    fetch(`${API_BASE_URL}/api/products`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const published = data.filter((p: any) => p.status === "PUBLISHED" || !p.status);
+          setProductsList(published);
+          if (published.length > 0) {
+            setFormData((prev) => ({
+              ...prev,
+              service: prev.service === "Custom Software Development" ? published[0].name : prev.service,
+            }));
+          }
+        }
+      })
+      .catch((err) => console.log("Fallback products:", err));
 
     const handleKeyDown = (e: KeyboardEvent) => {
       // Shortcut Rahasia Admin: Tekan Ctrl + Shift + A (atau Cmd + Shift + A)
@@ -652,8 +671,61 @@ export default function Home() {
     }
   };
 
-  const services = [
+  const getServiceIcon = (index: number, name: string) => {
+    const lower = (name || "").toLowerCase();
+    if (
+      lower.includes("tenaga kerja") ||
+      lower.includes("manpower") ||
+      lower.includes("outsourcing") ||
+      lower.includes("hr")
+    ) {
+      return <Users className="w-7 h-7" />;
+    }
+    if (
+      lower.includes("bpo") ||
+      lower.includes("business process") ||
+      lower.includes("operasional") ||
+      lower.includes("pelayanan")
+    ) {
+      return <Briefcase className="w-7 h-7" />;
+    }
+    if (
+      lower.includes("konsultasi") ||
+      lower.includes("audit") ||
+      lower.includes("security") ||
+      lower.includes("keamanan")
+    ) {
+      return <ShieldCheck className="w-7 h-7" />;
+    }
+    if (
+      lower.includes("transformasi") ||
+      lower.includes("digital") ||
+      lower.includes("cloud") ||
+      lower.includes("software")
+    ) {
+      return <BarChart3 className="w-7 h-7" />;
+    }
+    if (
+      lower.includes("ai") ||
+      lower.includes("data") ||
+      lower.includes("analitik")
+    ) {
+      return <Sparkles className="w-7 h-7" />;
+    }
+    const fallbackIcons = [
+      <Users className="w-7 h-7" key="1" />,
+      <Briefcase className="w-7 h-7" key="2" />,
+      <ShieldCheck className="w-7 h-7" key="3" />,
+      <BarChart3 className="w-7 h-7" key="4" />,
+      <Sparkles className="w-7 h-7" key="5" />,
+      <Zap className="w-7 h-7" key="6" />,
+    ];
+    return fallbackIcons[index % fallbackIcons.length];
+  };
+
+  const defaultServices = [
     {
+      id: "srv-1",
       icon: <Zap className="w-7 h-7" />,
       title: "Enterprise Web & Cloud Solutions",
       desc:
@@ -661,8 +733,10 @@ export default function Home() {
           ? "Pengembangan sistem web skala besar dengan arsitektur microservices, performa tinggi, dan skalabilitas tanpa batas."
           : "Large-scale enterprise web and cloud systems with microservices architecture, ultra-high performance, and infinite scalability.",
       tags: ["Next.js", "NestJS", "Kubernetes"],
+      isFeatured: true,
     },
     {
+      id: "srv-2",
       icon: <ShieldCheck className="w-7 h-7" />,
       title: lang === "id" ? "Cyber Security & Auditing" : "Cybersecurity & Security Auditing",
       desc:
@@ -670,8 +744,10 @@ export default function Home() {
           ? "Perlindungan aset digital perusahaan, pengujian penetrasi (pen-test), serta kepatuhan standar keamanan data ISO/IEC."
           : "Enterprise digital asset protection, penetration testing, and international ISO/IEC data governance compliance.",
       tags: ["ISO 27001", "Pen-testing", "Zero-Trust"],
+      isFeatured: true,
     },
     {
+      id: "srv-3",
       icon: <Sparkles className="w-7 h-7" />,
       title: lang === "id" ? "AI Integration & Data Analytics" : "AI Integration & Predictive Analytics",
       desc:
@@ -679,8 +755,10 @@ export default function Home() {
           ? "Implementasi kecerdasan buatan, pemrosesan data real-time, dan dashboard analitik prediktif untuk keputusan bisnis presisi."
           : "AI system implementation, real-time data streaming, and predictive analytics dashboards for precision business decisions.",
       tags: ["LLM", "Data Pipeline", "BI Dashboard"],
+      isFeatured: false,
     },
     {
+      id: "srv-4",
       icon: <BarChart3 className="w-7 h-7" />,
       title: lang === "id" ? "Digital Business Transformation" : "Digital Business Transformation",
       desc:
@@ -688,8 +766,25 @@ export default function Home() {
           ? "Modernisasi operasional bisnis konvensional menjadi ekosistem digital otomatis yang hemat biaya dan efisien."
           : "Modernizing legacy business operations into automated, cost-effective, and streamlined digital ecosystems.",
       tags: ["Workflow ERP", "API Automation", "CRM"],
+      isFeatured: false,
     },
   ];
+
+  const activeServices =
+    productsList.length > 0
+      ? productsList.map((p, idx) => ({
+          id: p.id,
+          icon: getServiceIcon(idx, p.name),
+          title: p.name,
+          desc: p.description || p.shortDesc || "",
+          tags: p.shortDesc
+            ? [p.shortDesc]
+            : p.category?.name
+            ? [p.category.name]
+            : ["Solusi Terpercaya"],
+          isFeatured: Boolean(p.isFeatured),
+        }))
+      : defaultServices;
 
   const defaultArticles = [
     {
@@ -1417,24 +1512,32 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((srv, idx) => (
+            {activeServices.map((srv, idx) => (
               <div
-                key={idx}
+                key={srv.id || idx}
                 className="bg-white rounded-3xl p-8 border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-rose-300/80 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
               >
                 <div>
-                  <div className="w-14 h-14 rounded-2xl bg-rose-50/90 border border-rose-200/60 flex items-center justify-center mb-6 text-rose-800 group-hover:bg-gradient-to-tr group-hover:from-rose-800 group-hover:to-[#700020] group-hover:text-white group-hover:scale-105 shadow-xs group-hover:shadow-lg transition-all duration-300">
-                    {srv.icon}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-14 h-14 rounded-2xl bg-rose-50/90 border border-rose-200/60 flex items-center justify-center text-rose-800 group-hover:bg-gradient-to-tr group-hover:from-rose-800 group-hover:to-[#700020] group-hover:text-white group-hover:scale-105 shadow-xs group-hover:shadow-lg transition-all duration-300">
+                      {srv.icon}
+                    </div>
+                    {srv.isFeatured && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200 shadow-xs">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                        Unggulan
+                      </span>
+                    )}
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 group-hover:text-rose-800 transition-colors">
                     {srv.title}
                   </h3>
-                  <p className="mt-3 text-slate-600 text-sm leading-relaxed">{srv.desc}</p>
+                  <p className="mt-3 text-slate-600 text-sm leading-relaxed whitespace-pre-line">{srv.desc}</p>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
                   <div className="flex flex-wrap gap-2">
-                    {srv.tags.map((tg, tidx) => (
+                    {srv.tags && srv.tags.map((tg: string, tidx: number) => (
                       <span
                         key={tidx}
                         className="px-3 py-1 rounded-full text-xs font-semibold bg-rose-50/80 border border-rose-100 text-rose-900"
@@ -1445,6 +1548,7 @@ export default function Home() {
                   </div>
                   <a
                     href="#contact"
+                    onClick={() => setFormData((prev) => ({ ...prev, service: srv.title }))}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-rose-800 bg-rose-50/90 hover:bg-gradient-to-r hover:from-rose-800 hover:to-[#700020] hover:text-white border border-rose-200/80 transition-all shadow-xs group/btn shrink-0"
                   >
                     <span>{t.services.consultService}</span>
@@ -1865,11 +1969,17 @@ export default function Home() {
                           onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-hidden focus:ring-2 focus:ring-rose-800"
                         >
-                          {t.contact.servicesOptions.map((opt) => (
-                            <option key={opt.value} value={opt.value}>
-                              {opt.label}
-                            </option>
-                          ))}
+                          {productsList.length > 0
+                            ? productsList.map((p) => (
+                                <option key={p.id} value={p.name}>
+                                  {p.name}
+                                </option>
+                              ))
+                            : t.contact.servicesOptions.map((opt) => (
+                                <option key={opt.value} value={opt.value}>
+                                  {opt.label}
+                                </option>
+                              ))}
                         </select>
                       </div>
                     </div>

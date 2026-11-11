@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Header } from '@nestjs/common';
 import { ProductsService } from './products.service.js';
 
 @Controller('api/products')
@@ -6,6 +6,7 @@ export class ProductsController {
   constructor(private readonly service: ProductsService) {}
 
   @Get()
+  @Header('Cache-Control', 'no-cache, no-store, must-revalidate')
   async findAll() {
     return this.service.findAll();
   }
