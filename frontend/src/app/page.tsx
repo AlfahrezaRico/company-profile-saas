@@ -1657,30 +1657,30 @@ export default function Home() {
               {marqueeClients.map((c, idx) => (
                 <div
                   key={idx}
-                  className="group shrink-0 flex items-center gap-3.5 px-6 py-4 rounded-2xl bg-slate-50 hover:bg-white border border-slate-200/90 hover:border-rose-400 hover:shadow-lg hover:shadow-rose-900/10 transition-all duration-300 cursor-pointer min-w-[210px]"
+                  className="group shrink-0 flex items-center gap-3.5 px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl bg-rose-50/70 hover:bg-white border border-rose-200/80 hover:border-rose-400 hover:shadow-lg hover:shadow-rose-950/10 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer min-w-[210px]"
                   onClick={() => c.websiteUrl && window.open(c.websiteUrl, "_blank")}
                   title={c.websiteUrl ? `Kunjungi ${c.companyName}` : c.companyName}
                 >
                   {c.logoUrl ? (
-                    <div className="w-12 h-10 flex items-center justify-center shrink-0">
+                    <div className="w-12 h-10 flex items-center justify-center shrink-0 bg-white/95 rounded-xl p-1 border border-rose-100 shadow-2xs">
                       <img
                         src={c.logoUrl}
                         alt={c.companyName}
-                        className="max-h-9 max-w-[120px] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                        className="max-h-8 max-w-[100px] object-contain transition-all duration-300"
                       />
                     </div>
                   ) : (
-                    <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center shrink-0 group-hover:bg-rose-800 group-hover:text-white transition-all">
+                    <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center shrink-0 group-hover:bg-rose-800 group-hover:text-white transition-all shadow-2xs">
                       <Building2 className="w-5 h-5" />
                     </div>
                   )}
 
-                  <div className="flex flex-col">
-                    <span className="font-bold text-slate-800 text-sm group-hover:text-rose-800 transition-colors whitespace-nowrap">
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-bold text-slate-900 text-sm group-hover:text-rose-900 transition-colors whitespace-nowrap">
                       {c.companyName}
                     </span>
                     {c.category && (
-                      <span className="text-[11px] text-slate-400 font-medium whitespace-nowrap">
+                      <span className="text-[11px] text-rose-800/80 font-semibold whitespace-nowrap">
                         {c.category}
                       </span>
                     )}
