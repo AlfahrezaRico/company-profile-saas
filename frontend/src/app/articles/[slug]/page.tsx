@@ -344,25 +344,25 @@ function ArticleDetailContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafaf9] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#fafaf9] flex flex-col font-sans w-full max-w-full overflow-x-hidden">
       {/* FLOATING PILL GLASSMORPHISM NAVBAR (CLEAN CRYSTAL FROSTED GLASS ALA PRIVY.ID) */}
-      <div className="sticky top-3 sm:top-4 z-50 px-3 sm:px-6 lg:px-8 transition-all">
-        <header className="max-w-7xl mx-auto rounded-full bg-white/75 backdrop-blur-2xl [backdrop-filter:blur(24px)_saturate(180%)] border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.95)] ring-1 ring-slate-900/5 px-4 sm:px-6 py-2.5 transition-all">
-          <div className="flex items-center justify-between gap-4">
-            <Link href="/" className="flex items-center gap-3 group shrink-0 min-w-0">
+      <div className="sticky top-2 sm:top-4 z-50 px-2 sm:px-6 lg:px-8 transition-all w-full max-w-full">
+        <header className="max-w-7xl mx-auto rounded-full bg-white/80 backdrop-blur-2xl [backdrop-filter:blur(24px)_saturate(180%)] border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.95)] ring-1 ring-slate-900/5 px-3 sm:px-6 py-2 sm:py-2.5 transition-all">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink min-w-0">
               {profile.logoUrl ? (
                 <img
                   src={profile.logoUrl}
                   alt={profile.companyName || "Logo"}
-                  className="h-9 w-auto max-w-[120px] object-contain rounded-lg border border-slate-200 p-0.5 bg-white shadow-xs group-hover:scale-105 transition-transform"
+                  className="h-7 sm:h-9 w-auto max-w-[80px] sm:max-w-[120px] object-contain rounded-lg border border-slate-200 p-0.5 bg-white shadow-xs group-hover:scale-105 transition-transform shrink-0"
                 />
               ) : (
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-700 to-rose-900 flex items-center justify-center text-white shadow-md shadow-rose-900/20 group-hover:scale-105 transition-transform">
-                  <Building2 className="w-5 h-5" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-rose-700 to-rose-900 flex items-center justify-center text-white shadow-md shadow-rose-900/20 group-hover:scale-105 transition-transform shrink-0">
+                  <Building2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
               )}
-              <div className="flex flex-col min-w-0 max-w-[180px] sm:max-w-[240px]">
-                <span className="text-sm sm:text-base font-bold tracking-tight text-slate-900 group-hover:text-rose-800 transition-colors leading-tight truncate">
+              <div className="flex flex-col min-w-0 max-w-[120px] xs:max-w-[160px] sm:max-w-[240px]">
+                <span className="text-xs sm:text-base font-bold tracking-tight text-slate-900 group-hover:text-rose-800 transition-colors leading-tight truncate">
                   {profile.companyName}
                 </span>
                 <span className="text-[9px] tracking-wider text-rose-800 uppercase font-bold hidden sm:block truncate">
@@ -371,17 +371,17 @@ function ArticleDetailContent() {
               </div>
             </Link>
 
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               {/* PRIVY.ID-STYLE DUAL-FLAG LANGUAGE SWITCHER */}
               <div
                 role="group"
                 aria-label="Change Language"
-                className="bg-slate-100 border border-slate-200/90 rounded-full p-0.5 flex items-center h-7 shadow-inner"
+                className="bg-slate-100 border border-slate-200/90 rounded-full p-0.5 flex items-center h-6 sm:h-7 shadow-inner"
               >
                 <button
                   type="button"
                   onClick={() => handleLanguageChange("id")}
-                  className={`flex items-center gap-1 px-2 h-6 rounded-full text-[11px] font-bold transition-all duration-200 cursor-pointer ${
+                  className={`flex items-center gap-1 px-1.5 sm:px-2 h-5 sm:h-6 rounded-full text-[10px] sm:text-[11px] font-bold transition-all duration-200 cursor-pointer ${
                     lang === "id"
                       ? "bg-white text-rose-950 border border-slate-200 shadow-xs"
                       : "text-slate-500 hover:text-slate-800"
@@ -389,12 +389,12 @@ function ArticleDetailContent() {
                   title="Bahasa Indonesia"
                 >
                   <IndonesiaFlag />
-                  <span>ID</span>
+                  <span className="hidden xs:inline">ID</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleLanguageChange("en")}
-                  className={`flex items-center gap-1 px-2 h-6 rounded-full text-[11px] font-bold transition-all duration-200 cursor-pointer ${
+                  className={`flex items-center gap-1 px-1.5 sm:px-2 h-5 sm:h-6 rounded-full text-[10px] sm:text-[11px] font-bold transition-all duration-200 cursor-pointer ${
                     lang === "en"
                       ? "bg-white text-rose-950 border border-slate-200 shadow-xs"
                       : "text-slate-500 hover:text-slate-800"
@@ -402,20 +402,20 @@ function ArticleDetailContent() {
                   title="English"
                 >
                   <UkFlag />
-                  <span>EN</span>
+                  <span className="hidden xs:inline">EN</span>
                 </button>
               </div>
 
               <Link
                 href="/articles"
-                className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-rose-800 hover:bg-rose-50/70 border border-slate-200/80 transition-all shadow-xs"
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold text-slate-700 hover:text-rose-800 hover:bg-rose-50/70 border border-slate-200/80 transition-all shadow-xs"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
+                <ArrowLeft className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
                 <span>{t.allArticles}</span>
               </Link>
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs font-bold text-white bg-gradient-to-r from-rose-700 via-rose-800 to-[#700020] hover:brightness-110 transition-all shadow-md shadow-rose-950/20 active:scale-95"
+                className="hidden md:inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs font-bold text-white bg-gradient-to-r from-rose-700 via-rose-800 to-[#700020] hover:brightness-110 transition-all shadow-md shadow-rose-950/20 active:scale-95"
               >
                 <span>{t.consult}</span>
                 <ArrowRight className="w-3.5 h-3.5" />

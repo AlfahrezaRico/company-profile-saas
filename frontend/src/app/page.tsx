@@ -939,7 +939,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-rose-800 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-rose-800 selection:text-white w-full max-w-full overflow-x-hidden">
       {/* RUNNING TICKER & DOCKED LANGUAGE SWITCHER TOP BAR */}
       <section
         aria-label="Corporate Announcements & Language Switcher"
@@ -1086,7 +1086,7 @@ export default function Home() {
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <a
                 href="#contact"
-                className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all shadow-md active:scale-95 ${
+                className={`hidden sm:inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all shadow-md active:scale-95 ${
                   navTheme === "light"
                     ? "text-white bg-gradient-to-r from-rose-700 via-rose-800 to-[#700020] hover:brightness-110 shadow-rose-950/20"
                     : "text-white bg-gradient-to-r from-rose-500 via-rose-600 to-[#700020] hover:brightness-115 ring-1 ring-white/30 shadow-rose-950/40"
