@@ -344,7 +344,7 @@ function ArticleDetailContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafaf9] flex flex-col font-sans w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-[#fafaf9] flex flex-col font-sans w-full max-w-full overflow-x-clip">
       {/* FLOATING PILL GLASSMORPHISM NAVBAR (CLEAN CRYSTAL FROSTED GLASS ALA PRIVY.ID) */}
       <div className="sticky top-2 sm:top-4 z-50 px-2 sm:px-6 lg:px-8 transition-all w-full max-w-full">
         <header className="max-w-7xl mx-auto rounded-full bg-white/80 backdrop-blur-2xl [backdrop-filter:blur(24px)_saturate(180%)] border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.95)] ring-1 ring-slate-900/5 px-3 sm:px-6 py-2 sm:py-2.5 transition-all">

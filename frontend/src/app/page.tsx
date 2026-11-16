@@ -939,7 +939,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-rose-800 selection:text-white w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-rose-800 selection:text-white w-full max-w-full overflow-x-clip">
       {/* RUNNING TICKER & DOCKED LANGUAGE SWITCHER TOP BAR */}
       <section
         aria-label="Corporate Announcements & Language Switcher"
@@ -1112,12 +1112,12 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`lg:hidden w-9 h-9 rounded-full flex items-center justify-center transition-all focus:outline-none cursor-pointer ${
+                className={`lg:hidden w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer ${
                   mobileMenuOpen
-                    ? "bg-white/15 text-white hover:bg-white/25 border border-white/25 shadow-sm"
+                    ? "bg-white/15 text-white hover:bg-white/25 border border-white/25 shadow-sm rotate-90"
                     : navTheme === "light"
-                    ? "bg-slate-100 text-slate-800 hover:bg-rose-50 hover:text-rose-800 border border-slate-200/90 shadow-2xs"
-                    : "bg-white/15 text-white hover:bg-white/25 border border-white/25 shadow-2xs"
+                    ? "bg-slate-100 text-slate-800 hover:bg-rose-50 hover:text-rose-800 border border-slate-200/90 shadow-2xs rotate-0"
+                    : "bg-white/15 text-white hover:bg-white/25 border border-white/25 shadow-2xs rotate-0"
                 }`}
                 aria-label={mobileMenuOpen ? "Tutup Navigasi" : "Buka Navigasi"}
               >
@@ -1126,9 +1126,15 @@ export default function Home() {
             </div>
           </div>
 
-          {/* MOBILE DROPDOWN (APPLE FROSTED GLASS) */}
-          {mobileMenuOpen && (
-            <div className="lg:hidden mt-3 pt-3 pb-2 border-t border-white/15 flex flex-col gap-1.5">
+          {/* MOBILE DROPDOWN (SMOOTH 60FPS CSS ACCORDION EXPANSION) */}
+          <div
+            className={`grid lg:hidden transition-all duration-300 ease-in-out ${
+              mobileMenuOpen
+                ? "grid-rows-[1fr] opacity-100 mt-3 pt-3 pb-2 border-t border-white/15"
+                : "grid-rows-[0fr] opacity-0 mt-0 pt-0 pb-0 border-transparent pointer-events-none"
+            }`}
+          >
+            <div className="overflow-hidden flex flex-col gap-1.5">
               {[
                 { label: t.nav.about, href: "#about" },
                 { label: t.nav.services, href: "#services" },
@@ -1192,7 +1198,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </header>
       </div>
 
