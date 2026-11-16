@@ -28,7 +28,7 @@ import {
   FileTextOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL, getWebsiteUrl } from "../../config/api";
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
@@ -328,7 +328,7 @@ export const ArticlesPage: React.FC = () => {
             <Button
               size="small"
               icon={<EyeOutlined />}
-              onClick={() => window.open(`http://localhost:3000/articles/${record.slug}`, "_blank")}
+              onClick={() => window.open(`${getWebsiteUrl()}/articles/${record.slug}`, "_blank")}
             />
           </Tooltip>
           <Tooltip title="Edit Artikel">

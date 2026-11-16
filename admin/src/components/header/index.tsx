@@ -22,7 +22,7 @@ import {
 } from "@ant-design/icons";
 import React, { useContext, useState } from "react";
 import { ColorModeContext } from "../../contexts/color-mode";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL, getWebsiteUrl } from "../../config/api";
 
 const { Text } = Typography;
 const { useToken } = theme;
@@ -115,7 +115,7 @@ export const Header: React.FC<RefineThemedLayoutHeaderProps> = ({
       <AntdLayout.Header style={headerStyles}>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <a
-            href="http://localhost:3000"
+            href={getWebsiteUrl()}
             target="_blank"
             rel="noreferrer"
             style={{ textDecoration: "none" }}

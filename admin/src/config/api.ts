@@ -15,4 +15,23 @@ if (
 
 export const API_BASE_URL = normalizedUrl;
 
+const rawWebsiteUrl = import.meta.env.VITE_WEBSITE_URL?.trim();
+
+export const getWebsiteUrl = (): string => {
+  if (rawWebsiteUrl) {
+    let url = rawWebsiteUrl.replace(/\/+$/, "");
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      url = `https://${url}`;
+    }
+    return url;
+  }
+  // Di production (non-localhost), otomatis arahkan ke URL website Vercel
+  if (typeof window !== "undefined" && window.location.hostname !== "localhost") {
+    return "https://company-profile-saas-j3an.vercel.app";
+  }
+  return "http://localhost:3000";
+};
+
+export const WEBSITE_URL = getWebsiteUrl();
+
 

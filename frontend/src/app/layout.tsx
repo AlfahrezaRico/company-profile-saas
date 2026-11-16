@@ -19,9 +19,58 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PT Alkarim Jaya Abadi - Solusi Teknologi Enterprise",
+  metadataBase: new URL("https://company-profile-saas-j3an.vercel.app"),
+  title: {
+    default: "PT Alkarim Jaya Abadi - Solusi Teknologi Enterprise",
+    template: "%s | PT Alkarim Jaya Abadi",
+  },
   description:
-    "Website Resmi PT Alkarim Jaya Abadi - Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber & Transformasi Digital Enterprise Terintegrasi.",
+    "Website Resmi PT Alkarim Jaya Abadi - Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Penyediaan Tenaga Kerja (Outsourcing) & Transformasi Digital Enterprise Terintegrasi di Indonesia.",
+  keywords: [
+    "PT Alkarim Jaya Abadi",
+    "Konsultan IT Indonesia",
+    "Penyediaan Tenaga Kerja",
+    "Manpower Outsourcing",
+    "Business Process Outsourcing",
+    "BPO Indonesia",
+    "Keamanan Siber",
+    "Cyber Security Auditing",
+    "Transformasi Digital",
+    "Enterprise Cloud Solutions",
+    "Software Engineering Indonesia",
+  ],
+  authors: [{ name: "PT Alkarim Jaya Abadi", url: "https://company-profile-saas-j3an.vercel.app" }],
+  creator: "PT Alkarim Jaya Abadi",
+  publisher: "PT Alkarim Jaya Abadi",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "PT Alkarim Jaya Abadi - Solusi Teknologi Enterprise",
+    description:
+      "Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Outsourcing Tenaga Kerja & Transformasi Digital Enterprise Terintegrasi.",
+    url: "https://company-profile-saas-j3an.vercel.app",
+    siteName: "PT Alkarim Jaya Abadi",
+    locale: "id_ID",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PT Alkarim Jaya Abadi - Solusi Teknologi Enterprise",
+    description:
+      "Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Outsourcing & Transformasi Digital Enterprise.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/favicon.ico",
   },
@@ -32,11 +81,35 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Corporation",
+    name: "PT Alkarim Jaya Abadi",
+    url: "https://company-profile-saas-j3an.vercel.app",
+    description:
+      "Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Penyediaan Tenaga Kerja (Outsourcing) & Transformasi Digital Enterprise Terintegrasi di Indonesia.",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "ID",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      availableLanguage: ["Indonesian", "English"],
+    },
+  };
+
   return (
     <html
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

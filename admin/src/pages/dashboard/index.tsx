@@ -29,7 +29,7 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL, getWebsiteUrl } from "../../config/api";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -273,7 +273,7 @@ export const DashboardPage: React.FC = () => {
           <Button
             type="primary"
             icon={<GlobalOutlined />}
-            onClick={() => window.open("http://localhost:3000", "_blank")}
+            onClick={() => window.open(getWebsiteUrl(), "_blank")}
             style={{
               background: "#fff",
               color: "#881337",
