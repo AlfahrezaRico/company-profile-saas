@@ -1002,34 +1002,40 @@ export default function Home() {
       {/* GLOBAL FLOATING PILL NAVBAR (APPLE IPHONE LIQUID FROSTED GLASS CAPSULE) */}
       <div className="sticky top-3 sm:top-4 z-50 px-3 sm:px-6 lg:px-8 transition-all pointer-events-none">
         <header
-          className={`max-w-7xl mx-auto rounded-full px-4 sm:px-6 py-2.5 transition-all duration-300 pointer-events-auto backdrop-blur-2xl [backdrop-filter:blur(24px)_saturate(190%)] ${
-            navTheme === "light"
-              ? "bg-white/85 border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.95)] ring-1 ring-slate-900/5 text-slate-800"
-              : "bg-white/15 border border-white/30 shadow-[0_16px_40px_rgba(0,0,0,0.35),inset_0_1px_1.5px_rgba(255,255,255,0.5)] ring-1 ring-white/15 text-white"
+          className={`max-w-7xl mx-auto px-4 sm:px-6 py-2.5 transition-all duration-300 pointer-events-auto backdrop-blur-2xl [backdrop-filter:blur(24px)_saturate(190%)] ${
+            mobileMenuOpen
+              ? "rounded-3xl bg-slate-950/95 border border-white/20 text-white shadow-2xl"
+              : navTheme === "light"
+              ? "rounded-full bg-white/85 border border-slate-200/80 shadow-[0_12px_36px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(255,255,255,0.95)] ring-1 ring-slate-900/5 text-slate-800"
+              : "rounded-full bg-white/15 border border-white/30 shadow-[0_16px_40px_rgba(0,0,0,0.35),inset_0_1px_1.5px_rgba(255,255,255,0.5)] ring-1 ring-white/15 text-white"
           }`}
         >
           <div className="flex items-center justify-between gap-4">
             {/* BRAND PILL */}
-            <Link href="/" className="flex items-center gap-3 group shrink-0 min-w-0">
+            <Link href="/" className="flex items-center gap-3 group shrink min-w-0">
               {profile.logoUrl ? (
                 <img
                   src={profile.logoUrl}
                   alt={profile.companyName || "Logo"}
                   className={`h-9 w-auto max-w-[120px] object-contain rounded-lg p-0.5 shadow-xs group-hover:scale-105 transition-all ${
-                    navTheme === "light"
+                    mobileMenuOpen
+                      ? "bg-white border border-white/50"
+                      : navTheme === "light"
                       ? "bg-white border border-slate-200"
                       : "bg-white/95 border border-white/50 backdrop-blur-md"
                   }`}
                 />
               ) : (
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-600 via-rose-700 to-[#700020] flex items-center justify-center text-white shadow-md shadow-rose-900/30 group-hover:scale-105 transition-transform">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-600 via-rose-700 to-[#700020] flex items-center justify-center text-white shadow-md shadow-rose-900/30 group-hover:scale-105 transition-transform shrink-0">
                   <Building2 className="w-5 h-5" />
                 </div>
               )}
               <div className="flex flex-col min-w-0 max-w-[180px] sm:max-w-[220px] md:max-w-[260px]">
                 <span
                   className={`text-sm sm:text-base font-bold tracking-tight truncate transition-colors leading-tight ${
-                    navTheme === "light"
+                    mobileMenuOpen
+                      ? "text-white"
+                      : navTheme === "light"
                       ? "text-slate-900 group-hover:text-rose-800"
                       : "text-white group-hover:text-rose-200 drop-shadow-xs"
                   }`}
@@ -1038,7 +1044,11 @@ export default function Home() {
                 </span>
                 <span
                   className={`text-[9px] tracking-wider uppercase font-bold truncate hidden sm:block ${
-                    navTheme === "light" ? "text-rose-800" : "text-rose-200 drop-shadow-xs"
+                    mobileMenuOpen
+                      ? "text-rose-300"
+                      : navTheme === "light"
+                      ? "text-rose-800"
+                      : "text-rose-200 drop-shadow-xs"
                   }`}
                 >
                   {profile.tagline || "Enterprise Digital Solutions"}
@@ -1086,7 +1096,9 @@ export default function Home() {
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <a
                 href="#contact"
-                className={`hidden sm:inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all shadow-md active:scale-95 ${
+                className={`${
+                  mobileMenuOpen ? "hidden" : "hidden sm:inline-flex"
+                } items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all shadow-md active:scale-95 ${
                   navTheme === "light"
                     ? "text-white bg-gradient-to-r from-rose-700 via-rose-800 to-[#700020] hover:brightness-110 shadow-rose-950/20"
                     : "text-white bg-gradient-to-r from-rose-500 via-rose-600 to-[#700020] hover:brightness-115 ring-1 ring-white/30 shadow-rose-950/40"
@@ -1096,31 +1108,27 @@ export default function Home() {
                 <ArrowRight className="w-3.5 h-3.5" />
               </a>
 
-              {/* MOBILE HAMBURGER TOGGLE */}
+              {/* MOBILE HAMBURGER / CLOSE TOGGLE WITH CLEAR BUTTON AFFORDANCE */}
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`lg:hidden p-2 rounded-full transition-colors focus:outline-none ${
-                  navTheme === "light"
-                    ? "text-slate-700 hover:bg-rose-50 hover:text-rose-800"
-                    : "text-white hover:bg-white/15"
+                className={`lg:hidden w-9 h-9 rounded-full flex items-center justify-center transition-all focus:outline-none cursor-pointer ${
+                  mobileMenuOpen
+                    ? "bg-white/15 text-white hover:bg-white/25 border border-white/25 shadow-sm"
+                    : navTheme === "light"
+                    ? "bg-slate-100 text-slate-800 hover:bg-rose-50 hover:text-rose-800 border border-slate-200/90 shadow-2xs"
+                    : "bg-white/15 text-white hover:bg-white/25 border border-white/25 shadow-2xs"
                 }`}
-                aria-label="Toggle Navigation"
+                aria-label={mobileMenuOpen ? "Tutup Navigasi" : "Buka Navigasi"}
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               </button>
             </div>
           </div>
 
           {/* MOBILE DROPDOWN (APPLE FROSTED GLASS) */}
           {mobileMenuOpen && (
-            <div
-              className={`lg:hidden mt-3 pt-3 pb-2 border-t flex flex-col gap-1 rounded-2xl p-2 ${
-                navTheme === "light"
-                  ? "border-slate-100 bg-white/95 text-slate-800"
-                  : "border-white/20 bg-slate-950/85 backdrop-blur-2xl text-white shadow-2xl"
-              }`}
-            >
+            <div className="lg:hidden mt-3 pt-3 pb-2 border-t border-white/15 flex flex-col gap-1.5">
               {[
                 { label: t.nav.about, href: "#about" },
                 { label: t.nav.services, href: "#services" },
@@ -1132,26 +1140,20 @@ export default function Home() {
                     key={idx}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                      navTheme === "light"
-                        ? "text-slate-700 hover:bg-rose-50 hover:text-rose-800"
-                        : "text-white/90 hover:bg-white/15 hover:text-white"
-                    }`}
+                    className="px-4 py-2.5 rounded-xl text-xs font-semibold text-white/90 hover:bg-white/15 hover:text-white transition-all flex items-center justify-between group"
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+                    <ChevronRight className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                   </Link>
                 ) : (
                   <a
                     key={idx}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                      navTheme === "light"
-                        ? "text-slate-700 hover:bg-rose-50 hover:text-rose-800"
-                        : "text-white/90 hover:bg-white/15 hover:text-white"
-                    }`}
+                    className="px-4 py-2.5 rounded-xl text-xs font-semibold text-white/90 hover:bg-white/15 hover:text-white transition-all flex items-center justify-between group"
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+                    <ChevronRight className="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                   </a>
                 )
               )}
@@ -1159,21 +1161,21 @@ export default function Home() {
               <a
                 href="#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="mt-1 flex items-center justify-center gap-2 px-4 py-2 rounded-full text-xs font-bold text-white bg-gradient-to-r from-rose-700 via-rose-800 to-[#700020] shadow-md active:scale-95"
+                className="mt-2 flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-bold text-white bg-gradient-to-r from-rose-700 via-rose-800 to-[#700020] shadow-lg shadow-rose-950/40 active:scale-95 transition-all"
               >
                 <span>{t.nav.consultationCta}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </a>
 
               {/* MOBILE LANGUAGE SWITCHER ROW */}
-              <div className="pt-2 mt-1 border-t border-slate-200/30 flex items-center justify-between px-3">
-                <span className="text-[11px] font-medium opacity-75">Bahasa / Language:</span>
-                <div className="flex items-center gap-1 bg-slate-900/90 p-0.5 rounded-full border border-slate-700">
+              <div className="pt-3 mt-2 border-t border-white/10 flex items-center justify-between px-2">
+                <span className="text-[11px] font-medium text-slate-400">Bahasa / Language:</span>
+                <div className="flex items-center gap-1 bg-white/10 p-0.5 rounded-full border border-white/15">
                   <button
                     type="button"
                     onClick={() => handleLanguageChange("id")}
-                    className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                      lang === "id" ? "bg-rose-950 text-rose-200 border border-rose-800" : "text-slate-400"
+                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all cursor-pointer ${
+                      lang === "id" ? "bg-rose-900 text-rose-100 border border-rose-700 shadow-xs" : "text-slate-400 hover:text-white"
                     }`}
                   >
                     <IndonesiaFlag /> ID
@@ -1181,8 +1183,8 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => handleLanguageChange("en")}
-                    className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                      lang === "en" ? "bg-rose-950 text-rose-200 border border-rose-800" : "text-slate-400"
+                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all cursor-pointer ${
+                      lang === "en" ? "bg-rose-900 text-rose-100 border border-rose-700 shadow-xs" : "text-slate-400 hover:text-white"
                     }`}
                   >
                     <UkFlag /> EN
