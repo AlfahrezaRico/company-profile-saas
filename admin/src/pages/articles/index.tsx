@@ -48,6 +48,12 @@ export interface ArticleItem {
 
 const API_BASE = `${API_BASE_URL}/api`;
 
+// Sertakan token login admin (JWT) agar backend mengizinkan akses data draft.
+const authHeaders = (): Record<string, string> => {
+  const token = localStorage.getItem("auth_token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
 export const ArticlesPage: React.FC = () => {
   const [articles, setArticles] = useState<ArticleItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -61,10 +67,14 @@ export const ArticlesPage: React.FC = () => {
   const fetchArticles = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/articles`);
+      const res = await fetch(`${API_BASE}/articles`, {
+        headers: { ...authHeaders() },
+      });
       if (res.ok) {
         const data = await res.json();
         setArticles(data);
+      } else if (res.status === 401) {
+        message.error("Sesi login berakhir, silakan login kembali");
       } else {
         message.error("Gagal memuat daftar artikel dari database");
       }
@@ -126,7 +136,7 @@ export const ArticlesPage: React.FC = () => {
         // UPDATE
         const res = await fetch(`${API_BASE}/articles/${editingArticle.id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...authHeaders() },
           body: JSON.stringify(payload),
         });
         if (res.ok) {
@@ -140,7 +150,7 @@ export const ArticlesPage: React.FC = () => {
         // CREATE
         const res = await fetch(`${API_BASE}/articles`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...authHeaders() },
           body: JSON.stringify(payload),
         });
         if (res.ok) {
@@ -160,6 +170,7 @@ export const ArticlesPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/articles/${id}`, {
         method: "DELETE",
+        headers: { ...authHeaders() },
       });
       if (res.ok) {
         message.success("Artikel berhasil dihapus dari database");
@@ -177,7 +188,7 @@ export const ArticlesPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/articles/${record.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ status: newStatus }),
       });
       if (res.ok) {
@@ -199,6 +210,7 @@ export const ArticlesPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/upload`, {
         method: "POST",
+        headers: { ...authHeaders() },
         body: formData,
       });
       if (res.ok) {

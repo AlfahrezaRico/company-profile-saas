@@ -5,8 +5,19 @@ import { PrismaService } from '../prisma/prisma.service.js';
 export class ArticlesService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
+  async findAll(status?: string, includeDrafts = false) {
+    // Pengunjung publik hanya boleh melihat artikel PUBLISHED.
+    // Admin (token valid) boleh melihat semua status, dengan filter opsional.
+    const where: any = {};
+    if (includeDrafts) {
+      if (status) {
+        where.status = status;
+      }
+    } else {
+      where.status = 'PUBLISHED';
+    }
     return this.prisma.article.findMany({
+      where,
       include: { category: true, author: { select: { id: true, name: true, email: true } } },
       orderBy: { createdAt: 'desc' },
     });
