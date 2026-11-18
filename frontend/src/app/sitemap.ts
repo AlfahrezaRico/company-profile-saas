@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { API_BASE_URL } from "@/config/api";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://company-profile-saas-j3an.vercel.app";
+  const baseUrl = "https://www.ptalkarimjayaabadi.com";
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

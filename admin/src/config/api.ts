@@ -27,7 +27,7 @@ export const getWebsiteUrl = (): string => {
   }
   // Di production (non-localhost), otomatis arahkan ke URL website Vercel
   if (typeof window !== "undefined" && window.location.hostname !== "localhost") {
-    return "https://company-profile-saas-j3an.vercel.app";
+    return "https://www.ptalkarimjayaabadi.com";
   }
   return "http://localhost:3000";
 };

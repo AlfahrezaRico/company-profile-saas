@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://company-profile-saas-j3an.vercel.app"),
+  metadataBase: new URL("https://www.ptalkarimjayaabadi.com"),
   title: {
     default: "PT Alkarim Jaya Abadi - Solusi Teknologi Enterprise",
     template: "%s | PT Alkarim Jaya Abadi",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     "Enterprise Cloud Solutions",
     "Software Engineering Indonesia",
   ],
-  authors: [{ name: "PT Alkarim Jaya Abadi", url: "https://company-profile-saas-j3an.vercel.app" }],
+  authors: [{ name: "PT Alkarim Jaya Abadi", url: "https://www.ptalkarimjayaabadi.com" }],
   creator: "PT Alkarim Jaya Abadi",
   publisher: "PT Alkarim Jaya Abadi",
   alternates: {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     title: "PT Alkarim Jaya Abadi - Solusi Teknologi Enterprise",
     description:
       "Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Outsourcing Tenaga Kerja & Transformasi Digital Enterprise Terintegrasi.",
-    url: "https://company-profile-saas-j3an.vercel.app",
+    url: "https://www.ptalkarimjayaabadi.com",
     siteName: "PT Alkarim Jaya Abadi",
     locale: "id_ID",
     type: "website",
@@ -85,7 +85,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Corporation",
     name: "PT Alkarim Jaya Abadi",
-    url: "https://company-profile-saas-j3an.vercel.app",
+    url: "https://www.ptalkarimjayaabadi.com",
     description:
       "Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Penyediaan Tenaga Kerja (Outsourcing) & Transformasi Digital Enterprise Terintegrasi di Indonesia.",
     address: {

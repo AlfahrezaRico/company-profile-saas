@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://company-profile-saas-j3an.vercel.app/sitemap.xml",
+    sitemap: "https://www.ptalkarimjayaabadi.com/sitemap.xml",
   };
 }
