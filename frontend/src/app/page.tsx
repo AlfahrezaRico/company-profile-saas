@@ -85,7 +85,7 @@ const translations = {
     },
     hero: {
       defaultBadge: "SOLUSI TEKNOLOGI ENTERPRISE TERPERCAYA",
-      primaryCta: "Konsultasi Proyek Gratis",
+      primaryCta: "Konsultasi Proyek",
       secondaryCta: "Jelajahi Layanan Kami",
       trust1: "Konsultasi IT",
       trust2: "Manpower Outsourcing",
@@ -226,7 +226,7 @@ const translations = {
     },
     hero: {
       defaultBadge: "TRUSTED ENTERPRISE TECHNOLOGY SOLUTIONS",
-      primaryCta: "Free Project Consultation",
+      primaryCta: "Project Consultation",
       secondaryCta: "Explore Our Services",
       trust1: "IT Consulting",
       trust2: "Manpower Outsourcing",
@@ -495,7 +495,7 @@ export default function Home() {
         "Kami memadukan standar rekayasa software berkinerja tinggi, arsitektur cloud aman, dan ekosistem digital terintegrasi untuk akselerasi pertumbuhan perusahaan Anda.",
       badge: "SOLUSI TEKNOLOGI ENTERPRISE TERPERCAYA",
       layout: "CENTER",
-      primaryCtaText: "Konsultasi Proyek Gratis",
+      primaryCtaText: "Konsultasi Proyek",
       primaryCtaUrl: "#contact",
       secondaryCtaText: "Jelajahi Layanan Kami",
       secondaryCtaUrl: "#services",
