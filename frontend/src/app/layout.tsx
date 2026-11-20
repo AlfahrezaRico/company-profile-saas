@@ -21,44 +21,40 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.ptalkarimjayaabadi.com"),
   title: {
-    default: "PT Alkarim Jaya Abadi - Solusi Teknologi Enterprise",
-    template: "%s | PT Alkarim Jaya Abadi",
+    default: "PT Al Karim Jaya Abadi - Konsultan IT, Manpower Outsourcing, dan BPO",
+    template: "%s | PT Al Karim Jaya Abadi",
   },
   description:
-    "Website Resmi PT Alkarim Jaya Abadi - Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Penyediaan Tenaga Kerja (Outsourcing) & Transformasi Digital Enterprise Terintegrasi di Indonesia.",
+    "PT Al Karim Jaya Abadi adalah perusahaan yang bergerak di bidang konsultasi IT, penyediaan tenaga kerja (manpower outsourcing), dan Business Process Outsourcing (BPO).",
   keywords: [
-    "PT Alkarim Jaya Abadi",
+    "PT Al Karim Jaya Abadi",
     "Konsultan IT Indonesia",
     "Penyediaan Tenaga Kerja",
     "Manpower Outsourcing",
     "Business Process Outsourcing",
     "BPO Indonesia",
-    "Keamanan Siber",
-    "Cyber Security Auditing",
     "Transformasi Digital",
-    "Enterprise Cloud Solutions",
-    "Software Engineering Indonesia",
   ],
-  authors: [{ name: "PT Alkarim Jaya Abadi", url: "https://www.ptalkarimjayaabadi.com" }],
-  creator: "PT Alkarim Jaya Abadi",
-  publisher: "PT Alkarim Jaya Abadi",
+  authors: [{ name: "PT Al Karim Jaya Abadi", url: "https://www.ptalkarimjayaabadi.com" }],
+  creator: "PT Al Karim Jaya Abadi",
+  publisher: "PT Al Karim Jaya Abadi",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "PT Alkarim Jaya Abadi - Solusi Teknologi Enterprise",
+    title: "PT Al Karim Jaya Abadi - Konsultan IT, Manpower Outsourcing, dan BPO",
     description:
-      "Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Outsourcing Tenaga Kerja & Transformasi Digital Enterprise Terintegrasi.",
+      "PT Al Karim Jaya Abadi adalah perusahaan yang bergerak di bidang konsultasi IT, penyediaan tenaga kerja (manpower outsourcing), dan Business Process Outsourcing (BPO).",
     url: "https://www.ptalkarimjayaabadi.com",
-    siteName: "PT Alkarim Jaya Abadi",
+    siteName: "PT Al Karim Jaya Abadi",
     locale: "id_ID",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PT Alkarim Jaya Abadi - Solusi Teknologi Enterprise",
+    title: "PT Al Karim Jaya Abadi - Konsultan IT, Manpower Outsourcing, dan BPO",
     description:
-      "Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Outsourcing & Transformasi Digital Enterprise.",
+      "PT Al Karim Jaya Abadi adalah perusahaan yang bergerak di bidang konsultasi IT, penyediaan tenaga kerja (manpower outsourcing), dan Business Process Outsourcing (BPO).",
   },
   robots: {
     index: true,
@@ -84,10 +80,10 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Corporation",
-    name: "PT Alkarim Jaya Abadi",
+    name: "PT Al Karim Jaya Abadi",
     url: "https://www.ptalkarimjayaabadi.com",
     description:
-      "Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber, Penyediaan Tenaga Kerja (Outsourcing) & Transformasi Digital Enterprise Terintegrasi di Indonesia.",
+      "PT Al Karim Jaya Abadi adalah perusahaan yang bergerak di bidang konsultasi IT, penyediaan tenaga kerja (manpower outsourcing), dan Business Process Outsourcing (BPO).",
     address: {
       "@type": "PostalAddress",
       addressCountry: "ID",
