@@ -69,10 +69,10 @@ const translations = {
   id: {
     announcementBadge: "PENGUMUMAN RESMI",
     announcements: [
-      "🚀 Platform Solusi Rekayasa Software Berkinerja Tinggi, Keamanan Siber & Transformasi Digital Enterprise Terintegrasi.",
-      "🔒 Standar Keamanan Enkripsi AES-256 GCM & Kepatuhan Tata Kelola Perlindungan Data ISO 27001.",
-      "⚡ SLA Keandalan Infrastruktur Cloud & Jaringan Transaksi 99.9% Uptime 24/7.",
-      "💼 Hubungi Tim Konsultan Ahli untuk Audit Sistem & Akselerasi Bisnis Anda.",
+      "🚀 Konsultan IT, Penyedia Tenaga Kerja, dan Business Process Outsourcing untuk Perusahaan Anda.",
+      "💡 Membantu perusahaan menemukan solusi teknologi yang sesuai kebutuhan dan anggaran.",
+      "💼 Menyediakan tenaga kerja sesuai posisi dan kualifikasi yang dibutuhkan perusahaan.",
+      "🤝 Mengelola proses bisnis seperti layanan pelanggan dan administrasi.",
     ],
     nav: {
       about: "Tentang Kami",
@@ -87,15 +87,9 @@ const translations = {
       defaultBadge: "SOLUSI TEKNOLOGI ENTERPRISE TERPERCAYA",
       primaryCta: "Konsultasi Proyek Gratis",
       secondaryCta: "Jelajahi Layanan Kami",
-      trust1: "Arsitektur Skalabel & Aman",
-      trust2: "Kepatuhan Regulasi Industri",
-      trust3: "Pendampingan Teknis Dedicated",
-    },
-    metrics: {
-      isoLabel: "Keamanan Informasi Terstandar",
-      encryptionLabel: "Enkripsi Data End-to-End",
-      slaLabel: "SLA Keandalan Layanan",
-      supportLabel: "Dukungan Tim Ahli Siaga",
+      trust1: "Konsultasi IT",
+      trust2: "Manpower Outsourcing",
+      trust3: "BPO",
     },
     about: {
       badge: "Tentang Kami",
@@ -104,17 +98,17 @@ const translations = {
       missionTitle: "Misi Strategis",
       defaultVision: "Menjadi mitra rekayasa teknologi dan solusi digital enterprise terdepan di Asia Tenggara dengan keunggulan inovasi dan integritas prima.",
       defaultMission: "Menghadirkan infrastruktur digital yang aman, skalabel, serta memacu pertumbuhan bisnis mitra melalui transformasi teknologi berkelanjutan.",
-      valuesIntro: "Prinsip yang membimbing setiap baris kode dan strategi yang kami kembangkan:",
+      valuesIntro: "Prinsip yang membimbing setiap pekerjaan dan layanan yang kami berikan:",
       valuesList: [
-        { label: "Orientasi Hasil Bisnis", desc: "Setiap fitur yang dirancang berfokus pada efisiensi operasional dan peningkatan profit mitra." },
-        { label: "Keamanan Tanpa Kompromi", desc: "Penerapan arsitektur Zero-Trust, enkripsi standar militer, dan kepatuhan penuh regulasi." },
+        { label: "Orientasi Hasil Bisnis", desc: "Setiap layanan yang kami berikan berfokus pada efisiensi operasional dan kemajuan bisnis mitra." },
+        { label: "Komunikasi yang Jelas", desc: "Penjelasan sederhana dan mudah dipahami di setiap tahap pekerjaan." },
         { label: "Integritas & Transparansi", desc: "Komunikasi terbuka, timeline terukur, serta komitmen kualitas dalam setiap tahap pengerjaan." },
       ],
     },
     services: {
       badge: "LAYANAN & PRODUK UNGGULAN",
-      headline: "Solusi Teknologi Komprehensif Berstandar Enterprise",
-      subtitle: "Dirancang untuk menjawab kompleksitas kebutuhan bisnis dengan efisiensi tinggi, keamanan prima, dan skalabilitas jangka panjang.",
+      headline: "Solusi untuk Kebutuhan IT, Tenaga Kerja, dan Proses Bisnis Perusahaan Anda",
+      subtitle: "Konsultan IT, Penyedia Tenaga Kerja, dan Business Process Outsourcing untuk Perusahaan Anda.",
       consultService: "Konsultasi Solusi",
     },
     articles: {
@@ -134,13 +128,13 @@ const translations = {
     },
     clients: {
       badge: "JARINGAN MITRA STRATEGIS",
-      headline: "Dipercaya oleh Korporasi & Lembaga Terkemuka",
-      subtitle: "Membangun ekosistem bisnis digital yang kokoh melalui kolaborasi berkelanjutan dan kepatuhan standar industri tertinggi.",
+      headline: "Mitra & Klien Kami",
+      subtitle: "Beberapa perusahaan yang menggunakan layanan kami.",
     },
     contact: {
       badge: "Hubungi Kami",
       headline: "Mari Diskusikan Ide & Kebutuhan Proyek Anda",
-      desc: "Tim konsultan kami siap memberikan penilaian teknis gratis dan rencana roadmap solusi terbaik untuk bisnis Anda.",
+      desc: "Ceritakan kebutuhan perusahaan Anda, dan tim kami akan membantu menyusun solusi yang sesuai.",
       officeAddress: "Alamat Kantor",
       officialEmail: "Email Resmi",
       phoneWhatsapp: "Telepon & WhatsApp",
@@ -170,11 +164,10 @@ const translations = {
       companyDesc: "Penyedia solusi rekayasa perangkat lunak enterprise, infrastruktur cloud skalabel, dan keamanan siber bersertifikasi untuk akselerasi pertumbuhan bisnis modern.",
       solutionsTitle: "Solusi & Layanan",
       solutionsList: [
-        { label: "Arsitektur Web & Cloud", href: "#services" },
-        { label: "Audit Keamanan Siber", href: "#services" },
-        { label: "Integrasi AI & Analitik", href: "#services" },
-        { label: "Digitalisasi Alur Kerja ERP", href: "#services" },
-        { label: "Konsultasi Infrastruktur", href: "#contact" },
+        { label: "Konsultasi IT", href: "#services" },
+        { label: "Penyediaan Tenaga Kerja (Manpower Outsourcing)", href: "#services" },
+        { label: "Business Process Outsourcing (BPO)", href: "#services" },
+        { label: "Digital Business Transformation", href: "#services" },
       ],
       quickLinksTitle: "Tautan Cepat",
       quickLinks: [
@@ -217,10 +210,10 @@ const translations = {
   en: {
     announcementBadge: "OFFICIAL ANNOUNCEMENT",
     announcements: [
-      "🚀 High-Performance Enterprise Software Engineering, Cybersecurity & Digital Transformation Platform.",
-      "🔒 AES-256 GCM Encryption Standards & ISO 27001 Data Protection Governance Compliance.",
-      "⚡ 99.9% Uptime 24/7 Cloud Infrastructure & Transaction Network Reliability SLA.",
-      "💼 Contact Our Expert Consultants for System Audits & Enterprise Acceleration.",
+      "🚀 IT Consulting, Manpower Provision, and Business Process Outsourcing for Your Company.",
+      "💡 Helping companies find technology solutions that fit their needs and budget.",
+      "💼 Providing manpower matched to the positions and qualifications your company needs.",
+      "🤝 Managing business processes such as customer service and administration.",
     ],
     nav: {
       about: "About Us",
@@ -235,15 +228,9 @@ const translations = {
       defaultBadge: "TRUSTED ENTERPRISE TECHNOLOGY SOLUTIONS",
       primaryCta: "Free Project Consultation",
       secondaryCta: "Explore Our Services",
-      trust1: "Scalable & Secure Architecture",
-      trust2: "Industry & Governance Compliance",
-      trust3: "Dedicated Engineering Support",
-    },
-    metrics: {
-      isoLabel: "Standardized Information Security",
-      encryptionLabel: "End-to-End Data Encryption",
-      slaLabel: "Service Reliability SLA",
-      supportLabel: "24/7 Expert Standby Support",
+      trust1: "IT Consulting",
+      trust2: "Manpower Outsourcing",
+      trust3: "BPO",
     },
     about: {
       badge: "About Us",
@@ -252,17 +239,17 @@ const translations = {
       missionTitle: "Strategic Mission",
       defaultVision: "To become the leading enterprise technology and digital solutions partner in Southeast Asia through superior innovation and exceptional integrity.",
       defaultMission: "Delivering secure, scalable digital infrastructure and driving partner business growth through sustainable technological transformation.",
-      valuesIntro: "Guiding principles driving every line of code and digital strategy we engineer:",
+      valuesIntro: "Principles that guide every work and service we provide:",
       valuesList: [
-        { label: "Business Outcome Focused", desc: "Every architecture and feature is engineered to accelerate operational efficiency and drive measurable ROI." },
-        { label: "Uncompromising Security", desc: "Adherence to Zero-Trust architecture, military-grade encryption, and full international compliance." },
+        { label: "Business Outcome Focused", desc: "Every service we provide focuses on operational efficiency and our partners' business progress." },
+        { label: "Clear Communication", desc: "Simple, easy-to-understand explanations at every stage of the work." },
         { label: "Integrity & Transparency", desc: "Open communication, measurable milestones, and an uncompromising commitment to engineering quality." },
       ],
     },
     services: {
       badge: "FEATURED SERVICES & PRODUCTS",
-      headline: "Comprehensive Enterprise-Grade Tech Solutions",
-      subtitle: "Engineered to address complex business needs with high efficiency, robust security, and long-term scalability.",
+      headline: "Solutions for Your Company's IT, Manpower, and Business Process Needs",
+      subtitle: "IT Consulting, Manpower Provision, and Business Process Outsourcing for Your Company.",
       consultService: "Consult Solution",
     },
     articles: {
@@ -282,13 +269,13 @@ const translations = {
     },
     clients: {
       badge: "STRATEGIC PARTNERS NETWORK",
-      headline: "Trusted by Leading Enterprises & Institutions",
-      subtitle: "Building resilient digital ecosystems through continuous collaboration and uncompromising industry standards.",
+      headline: "Our Partners & Clients",
+      subtitle: "Some of the companies that use our services.",
     },
     contact: {
       badge: "Contact Us",
       headline: "Let's Discuss Your Project Goals & Requirements",
-      desc: "Our specialized consulting team is ready to provide a complimentary technical assessment and tailored solution roadmap for your business.",
+      desc: "Tell us about your company's needs, and our team will help prepare a suitable solution.",
       officeAddress: "Office Address",
       officialEmail: "Official Email",
       phoneWhatsapp: "Phone & WhatsApp",
@@ -318,11 +305,10 @@ const translations = {
       companyDesc: "Integrated provider of enterprise software engineering, scalable cloud infrastructure, and certified cybersecurity for accelerating modern business growth.",
       solutionsTitle: "Solutions & Services",
       solutionsList: [
-        { label: "Web & Cloud Architecture", href: "#services" },
-        { label: "Cybersecurity Auditing", href: "#services" },
-        { label: "AI Integration & Analytics", href: "#services" },
-        { label: "ERP Workflow Automation", href: "#services" },
-        { label: "Infrastructure Consulting", href: "#contact" },
+        { label: "IT Consulting", href: "#services" },
+        { label: "Manpower Outsourcing", href: "#services" },
+        { label: "Business Process Outsourcing (BPO)", href: "#services" },
+        { label: "Digital Business Transformation", href: "#services" },
       ],
       quickLinksTitle: "Quick Navigation",
       quickLinks: [
@@ -572,21 +558,21 @@ export default function Home() {
     lang === "en" && (fallbackHeroSlide as any)?.splitTitle
       ? (fallbackHeroSlide as any).splitTitle
       : (currentHeroSlide as any)?.splitTitle ||
-        (lang === "en" ? "Dedicated Solutions for Enterprise & Institutions" : "Solusi Khusus Korporasi & Lembaga");
+        (lang === "en" ? "Solutions for Your Company's Needs" : "Solusi untuk Kebutuhan Perusahaan");
 
   const slideSplitSubtitle =
     lang === "en" && (fallbackHeroSlide as any)?.splitSubtitle
       ? (fallbackHeroSlide as any).splitSubtitle
       : (currentHeroSlide as any)?.splitSubtitle ||
         (lang === "en"
-          ? "Custom enterprise security infrastructure, dedicated engineering team, SLA guarantees, and full regulatory compliance."
-          : "Infrastruktur cloud berdedikasi tinggi, pemenuhan standar regulasi ISO 27001, audit keamanan rutin, serta dukungan teknis 24/7.");
+          ? "We help companies meet their technology, manpower, and business process management needs."
+          : "Kami membantu perusahaan memenuhi kebutuhan teknologi, tenaga kerja, dan pengelolaan proses bisnis.");
 
   const slideSplitCta =
     lang === "en" && (fallbackHeroSlide as any)?.splitCtaText
       ? (fallbackHeroSlide as any).splitCtaText
       : (currentHeroSlide as any)?.splitCtaText ||
-        (lang === "en" ? "Enterprise Consultation" : "Konsultasi Enterprise");
+        (lang === "en" ? "Project Consultation" : "Konsultasi Proyek");
 
   const slideSplitCtaUrl = (currentHeroSlide as any)?.splitCtaUrl || "#contact";
 
@@ -1279,7 +1265,7 @@ export default function Home() {
                     <div className="flex flex-col items-start text-left pt-6 lg:pt-0 border-t border-white/20 lg:border-t-0 lg:border-l lg:border-white/25 lg:pl-10">
                       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold mb-3 bg-rose-500/20 border border-rose-400/30 text-rose-200">
                         <Building2 className="w-3.5 h-3.5 text-rose-300" />
-                        <span>{lang === "en" ? "ENTERPRISE & INSTITUTIONS" : "KORPORASI & ENTERPRISE"}</span>
+                        <span>{lang === "en" ? "OUR SERVICES" : "LAYANAN KAMI"}</span>
                       </div>
 
                       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-snug">
@@ -1477,29 +1463,6 @@ export default function Home() {
         </section>
       </div>
 
-      {/* TRUST & ACCREDITATION STRIP (ALA PRIVY.ID) */}
-      <section className="bg-white py-6 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-black text-rose-900">ISO 27001</span>
-              <span className="text-xs text-slate-500 font-medium mt-0.5">{t.metrics.isoLabel}</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-black text-rose-900">256-Bit</span>
-              <span className="text-xs text-slate-500 font-medium mt-0.5">{t.metrics.encryptionLabel}</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-black text-rose-900">99.9%</span>
-              <span className="text-xs text-slate-500 font-medium mt-0.5">{t.metrics.slaLabel}</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-2xl font-black text-rose-900">24/7</span>
-              <span className="text-xs text-slate-500 font-medium mt-0.5">{t.metrics.supportLabel}</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ABOUT SECTION */}
       <section id="about" className="py-20 lg:py-28 bg-white border-b border-slate-200">
