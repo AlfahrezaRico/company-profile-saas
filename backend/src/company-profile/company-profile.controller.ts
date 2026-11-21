@@ -6,7 +6,9 @@ export class CompanyProfileController {
   constructor(private readonly service: CompanyProfileService) {}
 
   @Get()
-  @Header('Cache-Control', 'no-cache, no-store, must-revalidate')
+  // Cache singkat di CDN: profil jarang berubah, respons ~200KB dipanggil di
+  // setiap halaman. Perubahan dari admin tampil publik maksimal 5 menit.
+  @Header('Cache-Control', 'public, max-age=300, stale-while-revalidate=600')
   async getProfile() {
     return this.service.getProfile();
   }
