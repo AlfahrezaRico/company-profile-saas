@@ -9,10 +9,12 @@ import {
   Query,
   Headers,
   Req,
+  Res,
   NotFoundException,
   UnauthorizedException,
+  StreamableFile,
 } from '@nestjs/common';
-import type { Request } from 'express';
+import type { Request, Response } from 'express';
 import { ArticlesService } from './articles.service.js';
 import { AuthService } from '../auth/auth.service.js';
 
@@ -61,6 +63,16 @@ export class ArticlesController {
     }
   }
 
+  // URL publik backend, untuk membangun URL thumbnail absolut yang bisa
+  // dipakai langsung sebagai src <img> dari domain frontend manapun.
+  private baseUrl(req: Request): string {
+    const proto =
+      (req.headers['x-forwarded-proto'] as string) || req.protocol || 'https';
+    const host =
+      (req.headers['x-forwarded-host'] as string) || req.headers.host || '';
+    return `${proto}://${host}`;
+  }
+
   @Get()
   async findAll(
     @Query('status') status: string,
@@ -68,7 +80,32 @@ export class ArticlesController {
     @Req() req: Request,
   ) {
     const includeDrafts = await this.assertAdmin(authHeader, req);
-    return this.service.findAll(status, includeDrafts);
+    return this.service.findAll(status, includeDrafts, this.baseUrl(req));
+  }
+
+  // Sajikan thumbnail sebagai binary yang bisa di-cache CDN lama (immutable).
+  // URL memakai ?v=updatedAt sehingga pergantian gambar menghasilkan URL baru.
+  @Get(':id/thumbnail')
+  async getThumbnail(
+    @Param('id') id: string,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const result = await this.service.getThumbnail(id);
+    if (!result) {
+      throw new NotFoundException('Thumbnail tidak ditemukan');
+    }
+    if ('redirectUrl' in result && result.redirectUrl) {
+      return res.redirect(result.redirectUrl);
+    }
+    if ('buffer' in result && result.buffer) {
+      res.set({
+        'Content-Type': result.mimeType,
+        'Content-Length': result.buffer.length,
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      });
+      return new StreamableFile(result.buffer);
+    }
+    throw new NotFoundException('Thumbnail tidak ditemukan');
   }
 
   @Get(':id')
@@ -77,7 +114,7 @@ export class ArticlesController {
     @Headers('authorization') authHeader: string,
     @Req() req: Request,
   ) {
-    const article = await this.service.findOne(id);
+    const article = await this.service.findOne(id, this.baseUrl(req));
     const isAdmin = await this.assertAdmin(authHeader, req);
     if (!article || (article.status !== 'PUBLISHED' && !isAdmin)) {
       throw new NotFoundException('Artikel tidak ditemukan');
