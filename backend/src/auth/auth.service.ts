@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -9,6 +9,21 @@ export class AuthService {
 
   constructor(private prisma: PrismaService) {
     this.jwtSecret = process.env.JWT_SECRET || 'super_secret_jwt_company_profile_key_2026';
+  }
+
+  // Kunci JWT wajib dari env di production. Fallback bawaan hanya untuk
+  // development lokal; di production tanpa JWT_SECRET semua jalur auth
+  // gagal (fail-closed) daripada diam-diam memakai kunci yang publik.
+  private getSecret(): string {
+    if (process.env.JWT_SECRET) {
+      return process.env.JWT_SECRET;
+    }
+    if (process.env.NODE_ENV === 'production') {
+      throw new InternalServerErrorException(
+        'Autentikasi belum dikonfigurasi di server.',
+      );
+    }
+    return this.jwtSecret;
   }
 
   async validateUser(email: string, pass: string) {
@@ -38,7 +53,7 @@ export class AuthService {
         name: user.name,
         role: user.role,
       },
-      this.jwtSecret,
+      this.getSecret(),
       { expiresIn: '7d' },
     );
 
@@ -57,7 +72,7 @@ export class AuthService {
 
   async verifyToken(token: string) {
     try {
-      const payload: any = jwt.verify(token, this.jwtSecret);
+      const payload: any = jwt.verify(token, this.getSecret());
       const user = await this.prisma.user.findUnique({
         where: { id: payload.sub },
       });
