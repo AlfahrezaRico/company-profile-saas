@@ -4,7 +4,9 @@ import {
   UseInterceptors,
   UploadedFile,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
+import { AdminGuard } from '../auth/admin.guard.js';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { extname, join } from 'path';
@@ -13,6 +15,7 @@ import { put } from '@vercel/blob';
 
 @Controller('api/upload')
 export class UploadController {
+  @UseGuards(AdminGuard)
   @Post()
   @UseInterceptors(
     FileInterceptor('file', {

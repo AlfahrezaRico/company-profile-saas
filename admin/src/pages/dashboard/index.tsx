@@ -29,7 +29,8 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router";
-import { API_BASE_URL, getWebsiteUrl } from "../../config/api";
+import { API_BASE_URL, getWebsiteUrl } from "../../config/api";import { authHeaders } from "../../utils/auth-headers";
+
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -56,7 +57,7 @@ export const DashboardPage: React.FC = () => {
         fetch(`${API_BASE}/articles`).catch(() => null),
         fetch(`${API_BASE}/products`).catch(() => null),
         fetch(`${API_BASE}/clients`).catch(() => null),
-        fetch(`${API_BASE}/inquiries`).catch(() => null),
+        fetch(`${API_BASE}/inquiries`, { headers: authHeaders() }).catch(() => null),
         fetch(`${API_BASE}/hero-slides`).catch(() => null),
       ]);
 
@@ -111,7 +112,7 @@ export const DashboardPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/inquiries/${id}/status`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ status: newStatus }),
       });
       if (res.ok) {

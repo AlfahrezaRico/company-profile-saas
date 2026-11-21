@@ -21,7 +21,8 @@ import {
   UploadOutlined,
   PictureOutlined,
 } from "@ant-design/icons";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL } from "../../config/api";import { authHeaders } from "../../utils/auth-headers";
+
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -130,6 +131,7 @@ export const CompanyProfilePage: React.FC = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          ...authHeaders(),
         },
         body: JSON.stringify(payload),
       });
@@ -186,6 +188,7 @@ export const CompanyProfilePage: React.FC = () => {
 
       const res = await fetch(`${API_URL}/upload`, {
         method: "POST",
+        headers: authHeaders(),
         body: formData,
       });
 
@@ -225,6 +228,7 @@ export const CompanyProfilePage: React.FC = () => {
 
       const res = await fetch(`${API_URL}/upload`, {
         method: "POST",
+        headers: authHeaders(),
         body: formData,
       });
 

@@ -31,7 +31,8 @@ import {
   AlignLeftOutlined,
   SplitCellsOutlined,
 } from "@ant-design/icons";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL } from "../../config/api";import { authHeaders } from "../../utils/auth-headers";
+
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -70,7 +71,7 @@ export const HeroSlidesPage: React.FC = () => {
   const fetchSlides = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/hero-slides`);
+      const res = await fetch(`${API_BASE}/hero-slides`, { headers: authHeaders() });
       if (res.ok) {
         const data = await res.json();
         setSlides(data);
@@ -141,6 +142,7 @@ export const HeroSlidesPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/upload`, {
         method: "POST",
+        headers: authHeaders(),
         body: formData,
       });
 
@@ -168,7 +170,7 @@ export const HeroSlidesPage: React.FC = () => {
         // Update
         const res = await fetch(`${API_BASE}/hero-slides/${editingSlide.id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...authHeaders() },
           body: JSON.stringify(payload),
         });
 
@@ -183,7 +185,7 @@ export const HeroSlidesPage: React.FC = () => {
         // Create
         const res = await fetch(`${API_BASE}/hero-slides`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...authHeaders() },
           body: JSON.stringify(payload),
         });
 
@@ -204,6 +206,7 @@ export const HeroSlidesPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/hero-slides/${id}`, {
         method: "DELETE",
+        headers: authHeaders(),
       });
       if (res.ok) {
         message.success("Hero slide berhasil dihapus!");
@@ -220,7 +223,7 @@ export const HeroSlidesPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/hero-slides/${slide.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ isActive: checked }),
       });
       if (res.ok) {

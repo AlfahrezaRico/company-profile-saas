@@ -26,7 +26,8 @@ import {
   ReloadOutlined,
   PictureOutlined,
 } from "@ant-design/icons";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL } from "../../config/api";import { authHeaders } from "../../utils/auth-headers";
+
 
 const { Title, Text } = Typography;
 
@@ -55,7 +56,7 @@ export const ClientsPage: React.FC = () => {
   const fetchClients = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/clients`);
+      const res = await fetch(`${API_BASE}/clients`, { headers: authHeaders() });
       if (res.ok) {
         const data = await res.json();
         setClients(data);
@@ -106,6 +107,7 @@ export const ClientsPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/upload`, {
         method: "POST",
+        headers: authHeaders(),
         body: formData,
       });
 
@@ -134,7 +136,7 @@ export const ClientsPage: React.FC = () => {
         // UPDATE
         const res = await fetch(`${API_BASE}/clients/${editingClient.id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...authHeaders() },
           body: JSON.stringify(payload),
         });
 
@@ -144,7 +146,7 @@ export const ClientsPage: React.FC = () => {
         // CREATE
         const res = await fetch(`${API_BASE}/clients`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...authHeaders() },
           body: JSON.stringify(payload),
         });
 
@@ -163,6 +165,7 @@ export const ClientsPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/clients/${id}`, {
         method: "DELETE",
+        headers: authHeaders(),
       });
       if (!res.ok) throw new Error("Gagal menghapus mitra");
       message.success("Mitra berhasil dihapus dari database");

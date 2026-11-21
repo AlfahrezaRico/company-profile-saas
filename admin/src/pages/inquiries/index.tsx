@@ -22,7 +22,8 @@ import {
   CheckCircleOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL } from "../../config/api";import { authHeaders } from "../../utils/auth-headers";
+
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -49,7 +50,7 @@ export const InquiriesPage: React.FC = () => {
   const fetchInquiries = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/inquiries`);
+      const res = await fetch(`${API_BASE}/inquiries`, { headers: authHeaders() });
       if (res.ok) {
         const data = await res.json();
         setInquiries(data);
@@ -71,7 +72,7 @@ export const InquiriesPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/inquiries/${id}/status`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ status: newStatus }),
       });
       if (res.ok) {
@@ -92,6 +93,7 @@ export const InquiriesPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/inquiries/${id}`, {
         method: "DELETE",
+        headers: authHeaders(),
       });
       if (res.ok) {
         message.success("Pesan berhasil dihapus");

@@ -26,7 +26,8 @@ import {
   StarOutlined,
   CheckCircleOutlined,
 } from "@ant-design/icons";
-import { API_BASE_URL } from "../../config/api";
+import { API_BASE_URL } from "../../config/api";import { authHeaders } from "../../utils/auth-headers";
+
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
@@ -56,7 +57,7 @@ export const ProductsPage: React.FC = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/products`);
+      const res = await fetch(`${API_BASE}/products`, { headers: authHeaders() });
       if (res.ok) {
         const data = await res.json();
         setProducts(data);
@@ -115,7 +116,7 @@ export const ProductsPage: React.FC = () => {
         // UPDATE
         const res = await fetch(`${API_BASE}/products/${editingProduct.id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...authHeaders() },
           body: JSON.stringify(values),
         });
         if (res.ok) {
@@ -129,7 +130,7 @@ export const ProductsPage: React.FC = () => {
         // CREATE
         const res = await fetch(`${API_BASE}/products`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...authHeaders() },
           body: JSON.stringify(values),
         });
         if (res.ok) {
@@ -149,6 +150,7 @@ export const ProductsPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/products/${id}`, {
         method: "DELETE",
+        headers: authHeaders(),
       });
       if (res.ok) {
         message.success("Layanan berhasil dihapus dari database");
@@ -166,7 +168,7 @@ export const ProductsPage: React.FC = () => {
     try {
       const res = await fetch(`${API_BASE}/products/${record.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ status: newStatus }),
       });
       if (res.ok) {

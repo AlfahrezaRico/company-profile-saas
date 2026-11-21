@@ -1,4 +1,5 @@
-import { Controller, Get, Put, Body, Header } from '@nestjs/common';
+import { Controller, Get, Put, Body, Header, UseGuards } from '@nestjs/common';
+import { AdminGuard } from '../auth/admin.guard.js';
 import { CompanyProfileService } from './company-profile.service.js';
 
 @Controller('api/company-profile')
@@ -13,6 +14,7 @@ export class CompanyProfileController {
     return this.service.getProfile();
   }
 
+  @UseGuards(AdminGuard)
   @Put()
   async updateProfile(@Body() body: any) {
     return this.service.updateProfile(body);
