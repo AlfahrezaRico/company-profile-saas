@@ -5,7 +5,29 @@ import { PrismaService } from '../prisma/prisma.service.js';
 export class ArticlesService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(status?: string, includeDrafts = false) {
+  // Gambar thumbnail disimpan sebagai Data URL di database. Jangan kirim
+  // Data URL itu di respons JSON (bisa belasan MB per artikel); ganti dengan
+  // URL endpoint thumbnail yang bisa di-cache CDN. Parameter v memakai
+  // updatedAt supaya URL berubah saat gambar diganti (cache-busting).
+  private withPublicThumbnail(article: any, baseUrl?: string) {
+    if (
+      !article ||
+      !baseUrl ||
+      !article.thumbnailUrl ||
+      !article.thumbnailUrl.startsWith('data:')
+    ) {
+      return article;
+    }
+    const version = article.updatedAt
+      ? new Date(article.updatedAt).getTime()
+      : Date.now();
+    return {
+      ...article,
+      thumbnailUrl: `${baseUrl}/api/articles/${article.id}/thumbnail?v=${version}`,
+    };
+  }
+
+  async findAll(status?: string, includeDrafts = false, baseUrl?: string) {
     // Pengunjung publik hanya boleh melihat artikel PUBLISHED.
     // Admin (token valid) boleh melihat semua status, dengan filter opsional.
     const where: any = {};
@@ -16,15 +38,16 @@ export class ArticlesService {
     } else {
       where.status = 'PUBLISHED';
     }
-    return this.prisma.article.findMany({
+    const articles = await this.prisma.article.findMany({
       where,
       include: { category: true, author: { select: { id: true, name: true, email: true } } },
       orderBy: { createdAt: 'desc' },
     });
+    return articles.map((a) => this.withPublicThumbnail(a, baseUrl));
   }
 
-  async findOne(idOrSlug: string) {
-    return this.prisma.article.findFirst({
+  async findOne(idOrSlug: string, baseUrl?: string) {
+    const article = await this.prisma.article.findFirst({
       where: {
         OR: [{ id: idOrSlug }, { slug: idOrSlug }],
       },
@@ -33,6 +56,34 @@ export class ArticlesService {
         author: { select: { id: true, name: true, email: true } },
       },
     });
+    return this.withPublicThumbnail(article, baseUrl);
+  }
+
+  // Ambil bytes thumbnail untuk endpoint /api/articles/:id/thumbnail.
+  // Data URL -> decode jadi binary. URL http biasa -> redirect.
+  async getThumbnail(id: string) {
+    const article = await this.prisma.article.findUnique({ where: { id } });
+    if (!article || !article.thumbnailUrl) {
+      return null;
+    }
+    const value: string = article.thumbnailUrl;
+    if (value.startsWith('data:')) {
+      const match = value.match(/^data:([^;,]+)?(;base64)?,(.*)$/s);
+      if (!match) {
+        return null;
+      }
+      const mimeType = match[1] || 'image/png';
+      const isBase64 = !!match[2];
+      const raw = match[3] || '';
+      const buffer = isBase64
+        ? Buffer.from(raw, 'base64')
+        : Buffer.from(decodeURIComponent(raw), 'utf8');
+      return { buffer, mimeType };
+    }
+    if (value.startsWith('http://') || value.startsWith('https://')) {
+      return { redirectUrl: value };
+    }
+    return null;
   }
 
   async create(data: any) {
@@ -90,7 +141,15 @@ export class ArticlesService {
         slug: data.slug ?? existing.slug,
         content: data.content ?? existing.content,
         excerpt: data.excerpt !== undefined ? data.excerpt : existing.excerpt,
-        thumbnailUrl: data.thumbnailUrl !== undefined ? data.thumbnailUrl : existing.thumbnailUrl,
+        // Kalau admin menyimpan tanpa mengganti gambar, form mengirim balik
+        // URL endpoint thumbnail milik artikel ini sendiri. Jangan timpa Data
+        // URL asli dengan URL tersebut.
+        thumbnailUrl:
+          data.thumbnailUrl !== undefined &&
+          !(typeof data.thumbnailUrl === 'string' &&
+            data.thumbnailUrl.includes(`/api/articles/${id}/thumbnail`))
+            ? data.thumbnailUrl
+            : existing.thumbnailUrl,
         status: data.status ?? existing.status,
         categoryId: data.categoryId !== undefined ? data.categoryId : existing.categoryId,
       },
