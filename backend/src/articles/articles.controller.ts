@@ -63,6 +63,27 @@ export class ArticlesController {
     }
   }
 
+  // Wajib admin: tanpa token atau token tidak valid = 401.
+  // Dipakai endpoint tulis (tambah/ubah/hapus artikel).
+  private async requireAdmin(
+    authHeader: string | undefined,
+    req: Request,
+  ): Promise<void> {
+    const token = this.extractToken(authHeader, req);
+    if (!token) {
+      throw new UnauthorizedException(
+        'Login admin diperlukan untuk mengubah artikel.',
+      );
+    }
+    try {
+      await this.authService.verifyToken(token);
+    } catch {
+      throw new UnauthorizedException(
+        'Token sesi telah kedaluwarsa atau tidak valid.',
+      );
+    }
+  }
+
   // URL publik backend, untuk membangun URL thumbnail absolut yang bisa
   // dipakai langsung sebagai src <img> dari domain frontend manapun.
   private baseUrl(req: Request): string {
@@ -123,17 +144,33 @@ export class ArticlesController {
   }
 
   @Post()
-  async create(@Body() body: any) {
+  async create(
+    @Body() body: any,
+    @Headers('authorization') authHeader: string,
+    @Req() req: Request,
+  ) {
+    await this.requireAdmin(authHeader, req);
     return this.service.create(body);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() body: any) {
+  async update(
+    @Param('id') id: string,
+    @Body() body: any,
+    @Headers('authorization') authHeader: string,
+    @Req() req: Request,
+  ) {
+    await this.requireAdmin(authHeader, req);
     return this.service.update(id, body);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+    @Req() req: Request,
+  ) {
+    await this.requireAdmin(authHeader, req);
     return this.service.remove(id);
   }
 }
