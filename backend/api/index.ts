@@ -18,6 +18,20 @@ async function bootstrapServer() {
   });
   app.use(json({ limit: '10mb' }));
   app.use(urlencoded({ limit: '10mb', extended: true }));
+  // Cache public GET responses at the Vercel CDN so repeat visitors do not
+  // hit the function (Fast Origin Transfer). Requests that carry credentials
+  // (admin panel) are never cached.
+  app.use((req: any, res: any, next: any) => {
+    if (
+      req.method === 'GET' &&
+      !req.headers.authorization &&
+      !req.headers.cookie &&
+      /^\/api\/(clients|articles|hero-slides|products)(\/|\?|$)/.test(req.url)
+    ) {
+      res.setHeader('Cache-Control', 'public, s-maxage=120, stale-while-revalidate=600');
+    }
+    next();
+  });
   const uploadsDir = join(process.cwd(), 'uploads');
   if (existsSync(uploadsDir)) {
     app.useStaticAssets(uploadsDir, {
