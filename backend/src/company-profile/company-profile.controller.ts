@@ -8,8 +8,8 @@ export class CompanyProfileController {
 
   @Get()
   // Cache singkat di CDN: profil jarang berubah, respons ~200KB dipanggil di
-  // setiap halaman. Perubahan dari admin tampil publik maksimal 5 menit.
-  @Header('Cache-Control', 'public, max-age=300, stale-while-revalidate=600')
+  // setiap halaman. Perubahan dari admin tampil publik maksimal 1 menit.
+  @Header('Cache-Control', 'public, max-age=60, s-maxage=60, stale-while-revalidate=300')
   async getProfile() {
     return this.service.getProfile();
   }
